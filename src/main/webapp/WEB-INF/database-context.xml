@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<context:property-placeholder location="classpath:persistence.properties" ignore-unresolvable="true"/>
+
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<beans:property name="location">
+		<beans:value>properties/database.properties</beans:value>
+	</beans:property>
+</beans:bean>
+
+	<beans:bean id="sessionFactory"
+    class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+      <beans:property name="dataSource" ref="dataSource" />
+      <beans:property name="packagesToScan" value="com.test.rest.models" />
+      <beans:property name="hibernateProperties">
+         <beans:props>
+            <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
+            <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+         </beans:props>
+      </beans:property>
+   </beans:bean>
+   
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+		<beans:property name="url" value="${jdbc.url}" />
+		<beans:property name="username" value="${jdbc.user}" />
+		<beans:property name="password" value="${jdbc.pass}" />
+	</beans:bean>
+
+	 <beans:bean id="transactionManager"
+    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+      <beans:property name="sessionFactory" ref="sessionFactory" />
+   	</beans:bean>
+   	
+   	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+</beans:beans>

@@ -1,0 +1,14 @@
+nav{
+	background-color: #15CAA2;
+}
+
+.tabs .indicator{
+	background-color: green;
+}
+
+.tabs .tab a {
+    color: #15CAA2;
+}
+.tabs .tab a:hover {
+    color: green;
+}

@@ -7,6 +7,7 @@
 	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="<c:url value="/resources/js/materialize.js"/>"></script>
 	<script src="<c:url value="/resources/js/register.js"/>"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Register</title>
@@ -67,21 +68,21 @@
 				     <div class="row">
 				      <div class="col s6">
 				       <label for="datepicker">Birthdate</label>
-				       <input type="date" class="datepicker">
+				       <input type="date" class="datepicker" id="birthdate">
 				      </div>
 				      </div>
 				      <div class="row">
 					    <p>
-					      <input name="group1" type="radio" id="female" />
+					      <input name="gender" type="radio" id="female" />
 					      <label for="female">Female</label>
 					    </p>
 					    <p>
-					      <input name="group1" type="radio" id="male" />
+					      <input name="gender" type="radio" id="male" />
 					      <label for="male">Male</label>
 					    </p>
 				      </div>
 				      <div class="row right">
-				      	<a class="waves-effect waves-light btn" onclick="  $('ul.tabs').tabs('select_tab', 'info3');" id="next-2">Next</a>
+				      	<a class="waves-effect waves-light btn" onclick="$('ul.tabs').tabs('select_tab', 'info3');" id="next-2">Next</a>
 				      </div>
 				    </form>
 				  </div>
@@ -100,14 +101,11 @@
 				        </div>
 				        <div class="input-field col s6">
 				          <i class="material-icons prefix">phone</i>
-				          <input id="icon_telephone" type="tel" class="validate">
+				          <input id="telephone" type="tel" class="validate">
 				          <label for="icon_telephone">Telephone</label>
 				        </div>
 				      </div>
-				      <div class="row">
-				    	 Captcha ${captcha} <br>
-						<input id="captcha"/>
-					  </div>
+				      <div class="row g-recaptcha" data-sitekey="6LexOQsTAAAAAPyYfVzlMplaUd8vFbFNSjIu-uh7"></div>
 				      <div class="row right">
 				      <a class="waves-effect waves-light btn-large" id="register">register</a>
 				      </div>

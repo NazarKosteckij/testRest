@@ -1,51 +1,28 @@
-package com.test.rest.models;
+package com.test.rest.dto;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity(name = "userModel") 
-@Table(name="users")
-public class UserModel {
+public class UserDto{
 	
-	@Id
-	@GeneratedValue
-	private int id;
+	private Integer id;
 	
-	@Column(name="firstName")
 	private String firstName;
 	
-	@Column(name="lastName")
 	private String lastName;
 	
-	@Column(name="password")
 	private String password;
 	
-	@Column(name="email", unique=true)
 	private String email;
 	
-	@Column(name="birthdate")
-	private Date birthdate;
+	private String birthdate;
 	
-	@Column(name="phone", length=15, unique=true)
 	private String phone;
 	
-	@Column(name="gender")
 	private String gender;
-	
-	public UserModel() {
-	
-	}	
-	
-	public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -81,11 +58,11 @@ public class UserModel {
 		this.email = email;
 	}
 
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -97,17 +74,21 @@ public class UserModel {
 		this.phone = phone;
 	}
 
-	public String getGender() {
+	public String getGender() { 
 		return gender;
 	}
 
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
 	@Override
 	public String toString() {
-		
-		return "first name: " + this.firstName + ", lastName: " + this.lastName + ", email:" + this.email;
+			return "User: First Name - " + this.firstName + 
+					"; Last Name - " + this.lastName + 
+					"; Email - " + this.email + 
+					"; BirthDate - " + this.birthdate + 
+					"; Phone: " + this.phone + 
+					"; Gender - " + this.gender +
+					"; Password" + this.password;
 	}
 }

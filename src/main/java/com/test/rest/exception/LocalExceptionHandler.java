@@ -13,4 +13,10 @@ public class LocalExceptionHandler {
 	public void handleTokenException(Exception ex) {
 		System.out.println(ex.getMessage());
 	}
+	
+	@ResponseStatus(value=HttpStatus.CONFLICT, reason="Duplicate value")
+	@ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
+	public void handleHibernateException(Exception ex){
+		System.out.println(ex.getLocalizedMessage());
+	}
 }

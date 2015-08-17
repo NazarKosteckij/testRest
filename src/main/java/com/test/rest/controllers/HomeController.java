@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.rest.dao.UserDao;
-import com.test.rest.dao.UserDaoIpml;
 import com.test.rest.models.UserModel;
 import com.test.rest.services.TokenService;
 
@@ -44,7 +43,11 @@ public class HomeController {
 		String key = rsa.getPublicKey();
 		model.addAttribute("authKey", key);
 		UserModel user = new UserModel();
-		dao.create(user);
+		//user.setId(0);
+		user.setEmail("bdf");
+		user.setPhone("65464565413541");
+		user.setFirstName("s");
+		//dao.create(user);
 		return "home";
 	}
 	

@@ -1,20 +1,33 @@
 package com.test.rest.dao;
 
-
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.test.rest.models.UserModel;
 
-public class UserDaoIpml implements UserDao{
-	
-	@Autowired
-	SessionFactory sessionFactory;
+@Transactional
+public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 	
 	public void create(UserModel user) {
-		Session session = sessionFactory.openSession();
-		session.save(user);
+		getSession().save(user);
+		getSession().flush();
+	}
+
+	
+	public UserModel read(Integer id) {
+		getSession().load(id, UserModel.class);
+		return null;
+	}
+
+	
+	public void update(UserModel user) {
+		getSession().update(user);
+		getSession().flush();
+	}
+
+	
+	public void delete(UserModel user) {
+		getSession().delete(user);
+		getSession().flush();
 	}
 }

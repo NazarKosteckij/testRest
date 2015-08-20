@@ -1,10 +1,16 @@
-package com.test.rest.utils;
+package com.test.rest.utils.mappers;
 import java.sql.Date;
 
 import com.test.rest.dto.UserDto;
 import com.test.rest.models.UserModel;
 
-public class DtoConvertor {
+public class UserMapper {
+	
+	/**
+	 * Converts {@link UserModel} into {@link UserDto}
+	 * @param userDto
+	 * @return {@link UserDto}
+	 */
 	public static UserDto userToDto(UserModel user) {
 		UserDto userDto = new UserDto();
 		
@@ -20,6 +26,11 @@ public class DtoConvertor {
 		return userDto;
 	}
 	
+	/**
+	 * Converts {@link UserDto} into {@link UserModel}
+	 * @param userDto
+	 * @return {@link UserModel}
+	 */
 	public static UserModel creaUserFromDto(UserDto userDto) {
 		UserModel userModel = new UserModel();
 		userModel.setBirthdate(Date.valueOf(userDto.getBirthdate()));

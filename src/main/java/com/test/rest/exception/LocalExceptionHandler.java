@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class LocalExceptionHandler {
-		
+	
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="IOException occured")
 	@ExceptionHandler(TokenException.class)
 	public void handleTokenException(Exception ex) {
@@ -19,4 +19,5 @@ public class LocalExceptionHandler {
 	public void handleHibernateException(Exception ex){
 		System.out.println(ex.getLocalizedMessage());
 	}
+	
 }

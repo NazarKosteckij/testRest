@@ -191,7 +191,7 @@
 			<artifactId>spring-orm</artifactId>
 			<version>3.2.0.RELEASE</version>
 		</dependency>
-						
+	
 	</dependencies>
     <build>
         <plugins>

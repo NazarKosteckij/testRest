@@ -14,19 +14,24 @@ public class TokenServiceImpl implements TokenService {
 	@Autowired
 	TokenCache tokenCache;
 	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void init(){
 		System.out.println(size);
 	}
-	
 	public short getSize() {
 		return size;
 	}
 
+	
 	public void setSize(short size) {
 		this.size = size;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getPublicKey() {
 		String publicKey;
 		
@@ -36,6 +41,9 @@ public class TokenServiceImpl implements TokenService {
 		return publicKey;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isValid(String key) {
 		return tokenCache.isValid(key);
 	}

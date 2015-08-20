@@ -12,12 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.rest.dto.UserDto;
 import com.test.rest.services.UserService;
-import com.test.rest.utils.DtoConvertor;
 import com.test.rest.utils.VerifyCaptcha;
+import com.test.rest.utils.mappers.UserMapper;
 
 
 
@@ -35,19 +36,25 @@ public class ReginsterController {
 	
 	@RequestMapping(value="", method = RequestMethod.POST)
 	public @ResponseBody UserDto doRegister(HttpServletRequest request, HttpServletResponse response,  @RequestBody UserDto user) throws IOException{
-		System.out.println(user.toString());
-		
-		 String gRecaptchaResponse = request
-	                .getHeader("g-recaptcha-response");
-	        System.out.println(gRecaptchaResponse);
-	    if (VerifyCaptcha.verify(gRecaptchaResponse))
-	    {
-	    	userService.addUser(DtoConvertor.creaUserFromDto(user));
+		String gRecaptchaResponse = request.getHeader("g-recaptcha-response");
+	    
+		if (VerifyCaptcha.verify(gRecaptchaResponse)){
+	    	userService.addUser(UserMapper.creaUserFromDto(user));
 	    } else {
 	    	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	    }
 	    
 		return user;
 		
+	}
+	@RequestMapping(value="/checEmail", method=RequestMethod.POST)
+	public @ResponseBody String checEmail(@RequestParam String email, HttpServletResponse response){
+		if(userService.checkEmailExisting(email)){
+			response.setStatus(200);
+			return "{\"status\":\"ok\"}";
+		} else {
+			response.setStatus(406);
+			return "{\"status\":\"error\"}";
+		}
 	}
 }

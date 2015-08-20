@@ -31,7 +31,7 @@ public class UserModel {
 	@Column(name="birthdate")
 	private Date birthdate;
 	
-	@Column(name="phone", length=15, unique=true)
+	@Column(name="phone", length=15)
 	private String phone;
 	
 	@Column(name="gender")

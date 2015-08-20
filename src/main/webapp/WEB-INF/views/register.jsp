@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
 	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="<c:url value="/resources/js/materialize.js"/>"></script>
+	<script src="<c:url value="/resources/js/md5.js"/>"></script>
 	<script src="<c:url value="/resources/js/register.js"/>"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
@@ -77,7 +78,7 @@
 					      <label for="female">Female</label>
 					    </p>
 					    <p>
-					      <input name="gender" type="radio" id="male" />
+					      <input name="gender" type="radio" checked="true" id="male" />
 					      <label for="male">Male</label>
 					    </p>
 				      </div>

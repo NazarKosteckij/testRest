@@ -191,7 +191,14 @@
 			<artifactId>spring-orm</artifactId>
 			<version>3.2.0.RELEASE</version>
 		</dependency>
-	
+		
+		<!-- Dozer -->
+		<dependency>
+		    <groupId>net.sf.dozer</groupId>
+		    <artifactId>dozer</artifactId>
+		    <version>5.4.0</version>
+		</dependency>
+		          
 	</dependencies>
     <build>
         <plugins>

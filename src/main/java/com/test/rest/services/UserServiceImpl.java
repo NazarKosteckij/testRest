@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.test.rest.contstants.users.UserGender;
 import com.test.rest.dao.UserDao;
 import com.test.rest.models.UserModel;
 import com.test.rest.utils.MD5;
@@ -86,16 +87,22 @@ protected class UserValiator{
 	
 	public void validateUser(final UserModel user){
 		if(user != null){
-			if(validateEmail(user.getEmail()))
+			if(validateEmail(user.getEmail()) && validateGender(user.getGender())){
 				if(validatePassword(user.getPassword())){
 					
 				} else {
 					user.setPassword(MD5.getMD5(user.getPassword()));
 				}
-		} else throwException();
+			} else throwException();
+		}
 	}
 	
-	protected boolean validateEmail(String email) {
+	protected boolean validateGender(final String gender) {
+		return gender.equals(UserGender.GENDER_FEMALE) 
+				|| gender.equals(UserGender.GENDER_MALE);
+	}
+	
+	protected boolean validateEmail(final String email) {
 		if (email != null) {
 			Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 			matcher = pattern.matcher(email);
@@ -103,7 +110,7 @@ protected class UserValiator{
 		} else return false; 
 		
 	}
-	protected boolean validatePassword(String password) {
+	protected boolean validatePassword(final String password) {
 		if(password.length() == 32)
 			return true;
 		else {

@@ -87,6 +87,15 @@
         
    
     </beans:bean>
+    <beans:bean id="localExceptionHandler" class="com.test.rest.exception.LocalExceptionHandler" scope="prototype">
+    	<!-- Choose exception handler -->
+    	<beans:constructor-arg name="handler" ref="tokenExceptionHandler"></beans:constructor-arg>
+    </beans:bean>
+    
+    <!-- Exception Handlers -->
+    <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"></beans:bean>
+    <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"></beans:bean>
+    <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
   
     
 </beans:beans>

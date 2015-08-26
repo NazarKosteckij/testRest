@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.test.rest.contstants.users.UserGender;
+import com.test.rest.contstants.users.UserRoles;
+import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.dao.UserDao;
 import com.test.rest.models.UserModel;
 import com.test.rest.utils.MD5;
@@ -85,8 +87,13 @@ protected class UserValiator{
 		
 	}
 	
-	public void validateUser(final UserModel user){
+	public void validateUser(UserModel user){
 		if(user != null){
+			if(user.getRole()==null)
+				user.setRole(UserRoles.ROLE_USER);
+			if(user.getStatus()==null)
+				user.setStatus(UserStatuses.STATUS_UNCONFIRMED);
+			
 			if(validateEmail(user.getEmail()) && validateGender(user.getGender())){
 				if(validatePassword(user.getPassword())){
 					

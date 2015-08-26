@@ -8,8 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "userModel") 
+import org.hibernate.annotations.Check;
+
+
 @Table(name="users")
+@Entity(name = "userModel")
+@Check(constraints="(gender = 'male' OR gender = 'female')")
 public class UserModel {
 	
 	@Id
@@ -37,6 +41,13 @@ public class UserModel {
 	@Column(name="gender")
 	private String gender;
 	
+	@Column(name="role", columnDefinition="varchar(12) default 'user'")
+	private String role;
+	
+	@Column(name="status", columnDefinition="varchar(11) default 'unconfirmed'", nullable = false)
+	private String status;
+	
+	
 	public UserModel() {
 	
 	}	
@@ -47,6 +58,22 @@ public class UserModel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getFirstName() {

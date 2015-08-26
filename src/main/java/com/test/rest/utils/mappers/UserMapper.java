@@ -22,6 +22,8 @@ public class UserMapper {
 		userDto.setLastName(user.getLastName());
 		userDto.setPassword(user.getPassword());
 		userDto.setPhone(user.getPhone());
+		userDto.setGender(user.getGender());
+		userDto.setRole(user.getRole());
 		
 		return userDto;
 	}
@@ -33,6 +35,7 @@ public class UserMapper {
 	 */
 	public static UserModel creaUserFromDto(UserDto userDto) {
 		UserModel userModel = new UserModel();
+		
 		userModel.setBirthdate(Date.valueOf(userDto.getBirthdate()));
 		userModel.setEmail(userDto.getEmail());
 		userModel.setFirstName(userDto.getFirstName());
@@ -42,7 +45,8 @@ public class UserMapper {
 		userModel.setLastName(userDto.getLastName());
 		userModel.setPassword(userDto.getPassword());
 		userModel.setPhone(userDto.getPhone());
-		
+		userModel.setGender(userDto.getGender());
+		userModel.setRole(userDto.getRole());
 		
 		return userModel;
 	}

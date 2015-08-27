@@ -17,6 +17,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private ConfirmRegistrationService confirmRegistrationService;
+	
 	private UserValiator userValiator = new UserValiator();
 	
 	/**
@@ -25,6 +28,7 @@ public class UserServiceImpl implements UserService {
 	public void addUser(UserModel user) {
 		validateUser(user);
 		userDao.create(user);
+		confirmRegistrationService.sendConfirmationMail(user);
 	}
 	
 	/**
@@ -67,6 +71,20 @@ public class UserServiceImpl implements UserService {
 			return userDao.isEmailExists(email);
 		} else return false;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void confirmRegistration(UserModel user) {
+		user.setStatus(UserStatuses.STATUS_CONFIRMED);
+		updateUser(user);
+	}
+	
+	
+	public UserModel getByEmail(String email) {
+		return userDao.getByEmail(email);
+	}
+
 	
 	private void validateUser(UserModel user){
 		userValiator.validateUser(user);

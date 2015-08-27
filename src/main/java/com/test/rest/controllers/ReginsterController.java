@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.rest.dto.UserDto;
+import com.test.rest.exception.ConfirmationRegistrationException;
 import com.test.rest.services.UserService;
 import com.test.rest.utils.VerifyCaptcha;
 import com.test.rest.utils.mappers.UserMapper;
@@ -30,7 +31,7 @@ public class ReginsterController {
 	private UserService userService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String register(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
+	public String register(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws ConfirmationRegistrationException {
 		return "register";
 	}
 	

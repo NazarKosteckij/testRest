@@ -14,4 +14,5 @@ public interface UserDao {
 	
 	public boolean isEmailExists(String email);
 	
+	public UserModel getByEmail(String email);
 }

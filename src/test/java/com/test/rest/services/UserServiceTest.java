@@ -2,23 +2,26 @@ package com.test.rest.services;
 
 import static org.junit.Assert.*;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import javax.swing.Spring;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="UserServiceTest-context.xml")
+import com.test.rest.utils.email.EmailSender;
+
+
 public class UserServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@Test
 	public void test() {
-		assertTrue(true);
+		EmailSender emailSender = new EmailSender();
+		emailSender.sendMessage("silver_925@ukr.net","Hello from test", "JunitTest");
 	}
 
 }

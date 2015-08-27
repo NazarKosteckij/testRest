@@ -1,5 +1,6 @@
 package com.test.rest.services;
 
+import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.models.UserModel;
 
 public interface UserService {
@@ -28,6 +29,11 @@ public interface UserService {
 	 */
 	public void deleteUser(UserModel user);
 	
+	/**
+	 * Changes user's status to {@link UserStatuses.STATUS_CONFIRMED}
+	 * @param user
+	 */
+	public void confirmRegistration(UserModel user);
 	
 	/**
 	 * Checks email existing in database
@@ -36,4 +42,11 @@ public interface UserService {
 	 * @return <code>false</code> when email is absent 
 	 */
 	public boolean checkEmailExisting(String email);
+
+	/**
+	 * Gets user by email
+	 * @param email
+	 * @return {@link UserModel}
+	 */
+	public UserModel getByEmail(String email);
 }

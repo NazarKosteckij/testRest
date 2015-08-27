@@ -43,4 +43,12 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 		else 
 			return true;
 	}
+
+
+	@SuppressWarnings("unchecked")
+	public UserModel getByEmail(String email) {
+		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where email='" + email + "'" ).addEntity(UserModel.class).list();
+	return (UserModel) users.get(0);
+		
+	}
 }

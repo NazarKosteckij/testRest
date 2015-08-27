@@ -26,6 +26,8 @@
 	<context:component-scan base-package="com.test.rest.controllers" />
 	<context:component-scan base-package="com.test.rest.services" />
 	
+	
+	<!-- Beans of Services -->
 	<beans:bean id="tokenCache" class="com.test.rest.utils.tokens.TokenCacheImpl">
 		<beans:constructor-arg name="ttl" index="0" value="5000"></beans:constructor-arg>
 	</beans:bean>
@@ -33,12 +35,29 @@
 		<beans:property name="size" value="12"></beans:property>
 	</beans:bean>
 	
-
-	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	<beans:property name="location">
-		<beans:value>/WEB-INF/database.properties</beans:value>
-	</beans:property>
-</beans:bean>
+	<beans:bean id="userService" class="com.test.rest.services.UserServiceImpl"/>
+ 
+	<beans:bean id="confirmRegistrationService" class="com.test.rest.services.ConfirmRegistrationServiceImpl"/>
+ 	
+ 	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
+ 	<beans:property name="emailSender" ref="emailSender"></beans:property>
+ 	</beans:bean>
+ 	
+ 	<beans:bean id="emailSender" class="com.test.rest.utils.email.EmailSender" init-method="init">
+ 		<beans:property name="username" value="${mail.acount.email}"/>
+ 		<beans:property name="password" value="${mail.acount.password}"/>
+ 	</beans:bean>
+ 	<!-- Dao's Beans -->
+	
+	<beans:bean id="confirmRegistrationDao" class="com.test.rest.dao.ConfirmRegistrationDaoImpl"/>
+ 	
+	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
+   		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+    </beans:bean>
+	<context:property-placeholder 
+		location="classpath:database.properties, 
+				classpath:email.properties"
+		ignore-unresolvable="true"/>
 
 	<beans:bean id="sessionFactory"
     class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -69,11 +88,6 @@
       <beans:property name="sessionFactory" ref="sessionFactory" />
    	</beans:bean>
    	
-   	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
-   		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
-    </beans:bean>
-	
-	<beans:bean id="userService" class="com.test.rest.services.UserServiceImpl"/>
   	<beans:bean id="simpleMappingExceptionResolver"
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <beans:property name="exceptionMappings">
@@ -81,12 +95,11 @@
                 <beans:entry key="TokenException" value="tokenException"/>
             </beans:map>
         </beans:property>
-        <!-- See note below on how this interacts with Spring Boot -->
-        <beans:property name="defaultErrorView" value="home"/>
+        <!--  See note below on how this interacts with Spring Boot -->
+        <beans:property name="defaultErrorView" value="error"/>
         <beans:property name="exceptionAttribute" value="ex"/>
-        
-   
     </beans:bean>
+    
     <beans:bean id="localExceptionHandler" class="com.test.rest.exception.LocalExceptionHandler" scope="prototype">
     	<!-- Choose exception handler -->
     	<beans:constructor-arg name="handler" ref="tokenExceptionHandler"></beans:constructor-arg>

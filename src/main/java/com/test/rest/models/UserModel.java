@@ -44,14 +44,24 @@ public class UserModel {
 	@Column(name="role", columnDefinition="varchar(12) default 'user'")
 	private String role;
 	
-	@Column(name="status", columnDefinition="varchar(11) default 'unconfirmed'", nullable = false)
-	private String status;
+	@Column(name="status", columnDefinition="varchar(11)", nullable = false)
+	private String status = "unconfirmed";
 	
+	@Column(name="confirmationHash")
+	private String confirmationHash;
 	
 	public UserModel() {
 	
 	}	
 	
+	public String getConfirmationHash() {
+		return confirmationHash;
+	}
+
+	public void setConfirmationHash(String confirmationHash) {
+		this.confirmationHash = confirmationHash;
+	}
+
 	public int getId() {
 		return id;
 	}

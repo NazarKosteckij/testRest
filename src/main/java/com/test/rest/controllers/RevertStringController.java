@@ -1,5 +1,10 @@
 package com.test.rest.controllers;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +20,18 @@ import com.test.rest.services.TokenService;
 import com.test.rest.utils.StringUtil;
 
 @Controller
-@RequestMapping("/")
-public class RestController {
+public class RevertStringController {
 	
 	@Autowired
-	protected TokenService rsa;
-
-
+	private TokenService rsa;
+	
+	@RequestMapping(value = "/revert", method = RequestMethod.GET)
+	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws NoSuchAlgorithmException, NoSuchProviderException {
+		String key = rsa.getPublicKey();
+		model.addAttribute("authKey", key);
+		return "revertString";
+	}
+	
 	@RequestMapping(value="/string/{string}", method= RequestMethod.POST)
 	public String crunchifyREST(@RequestHeader("KEY") String key, @PathVariable String string, HttpServletResponse response, Model model) throws TokenException {
 		String reverted = StringUtil.revertString(string);

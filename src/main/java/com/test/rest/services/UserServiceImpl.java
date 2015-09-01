@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	public void addUser(UserModel user) {
 		validateUser(user);
+		user.setConfirmationHash(MD5.getMD5(user.getEmail()));
 		userDao.create(user);
 		confirmRegistrationService.sendConfirmationMail(user);
 	}
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	public void confirmRegistration(UserModel user) {
 		user.setStatus(UserStatuses.STATUS_CONFIRMED);
-		updateUser(user);
+		this.updateUser(user);
 	}
 	
 	

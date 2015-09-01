@@ -2,6 +2,7 @@ package com.test.rest.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +13,6 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 	
 	public void create(UserModel user) {
 		getSession().save(user);
-
-
 		getSession().flush();
 	}
 
@@ -25,8 +24,9 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 
 	
 	public void update(UserModel user) {
-		getSession().update(user);
-		getSession().flush();
+		Session session=  getSession();
+		session.update(user);
+		session.flush();
 	}
 
 	
@@ -44,11 +44,17 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 			return true;
 	}
 
-
 	@SuppressWarnings("unchecked")
 	public UserModel getByEmail(String email) {
 		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where email='" + email + "'" ).addEntity(UserModel.class).list();
 	return (UserModel) users.get(0);
 		
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public UserModel getByToken(String token) {
+		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where confirmationHash='" + token + "'" ).addEntity(UserModel.class).list();
+		return (UserModel) users.get(0);
 	}
 }

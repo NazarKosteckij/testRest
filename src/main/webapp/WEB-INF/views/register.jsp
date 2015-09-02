@@ -7,6 +7,7 @@
 	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="<c:url value="/resources/js/materialize.js"/>"></script>
 	<script src="<c:url value="/resources/js/md5.js"/>"></script>
+	<script src="<c:url value="/resources/js/ajaxFunctions.js"/>"></script>
 	<script src="<c:url value="/resources/js/register.js"/>"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
@@ -127,5 +128,15 @@
 		</div>
 	</div>
 </main>
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>You have been registered</h4>
+      <p>Pleas to continue registration confirm your email</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" id="ok-btn">OK</a>
+    </div>
+  </div>
 </body>
 </html>

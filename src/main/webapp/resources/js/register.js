@@ -26,8 +26,8 @@ $(document).ready(function(){
 	loadFromLocalStorage();
 	$('#register').click(function(){
 		getFieldsData();
-		if(valid()){
-			register();
+		if(dataInFormsIsValid()){
+			registerNewUser();
 		} else {
 			Materialize.toast("Some data is invalid", 5000);
 		}
@@ -128,26 +128,7 @@ function validateEmail() {
 	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	    var isValid = re.test(this.email);
 	    if(isValid){
-	    	$.ajax({
-	    		url: window.location.pathname + '/checEmail',
-	    		type: 'POST',
-	    		dataType: 'json',
-	    		data: {email: this.email}
-	    	})
-	    	.done(function(data) {
-	    		validForm(FieldNameOfEmail);
-	    		console.log(data);
-	    	})
-	    	.fail(function() {
-	    		Materialize.toast("this email is used", 5000);
-	    		invalidForm(FieldNameOfEmail);
-	    		return false;
-	    		console.log("error");
-	    	})
-	    	.always(function() {
-	    		
-	    	});
-	    	
+	    	checkEmailExistingAjax();	    	
 	    } else {
 	    	invalidForm(this.FieldNameOfEmail);
 	    }
@@ -155,7 +136,7 @@ function validateEmail() {
 	}  return false;
 }
 
-function valid(){
+function dataInFormsIsValid(){
 	if(validatePassword()&&validateEmail())
 		return true;
 	else 
@@ -163,32 +144,9 @@ function valid(){
 };
 
 //registration
-function register () {
-	var that = this;
-	$.ajax({
-		type: 'POST',
-        contentType: 'application/json',
-        dataType: "json",
-        headers:{
-        	"g-recaptcha-response" : $('#g-recaptcha-response').val()
-        },
-        data: formToJSON(),
-        error: function(data) {
-        	console.log(data);
-        	if (data.status==400) {
-	          	console.log('sd');
-	            window.location.href = "register";
-        	}
-
-       }
-	}).done(function(data) {
-			console.log(localStorage);
-			window.localStorage['clear']();
-       		console.log('local storage cleaned');
-        	console.log(data);
-        	alert("You have been successfully registered");
-        	window.location.href = "/rest"
-	});
+function registerNewUser() {
+	sendAjaxForRegister();
+}
 
 function formToJSON() {
     return JSON.stringify({
@@ -201,7 +159,3 @@ function formToJSON() {
 	    "gender": this.gender    
     });
 }
-
-
-}
-

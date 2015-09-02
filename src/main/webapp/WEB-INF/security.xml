@@ -11,7 +11,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 		<logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
 		<intercept-url pattern="/login" access="ROLE_ANONYMOUS"/>
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
-		<remember-me />
+		
 	</http>
 	
 

@@ -13,7 +13,7 @@ import org.hibernate.annotations.Check;
 
 @Table(name="users")
 @Entity(name = "userModel")
-@Check(constraints="(gender = 'male' OR gender = 'female')")
+@Check(constraints="(users.gender = 'male' OR users.gender = 'female')")
 public class UserModel {
 	
 	@Id
@@ -44,7 +44,7 @@ public class UserModel {
 	@Column(name="role", columnDefinition="varchar(12) default 'user'")
 	private String role;
 	
-	@Column(name="status", columnDefinition="varchar(11)", nullable = false)
+	@Column(name="status", columnDefinition="varchar(11) default 'unconfirmed'", nullable = false)
 	private String status = "unconfirmed";
 	
 	@Column(name="confirmationHash")

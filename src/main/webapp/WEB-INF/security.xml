@@ -9,19 +9,21 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/login?error=true" />
 		<logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
+		<intercept-url pattern="/login" access="ROLE_ANONYMOUS"/>
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 		<remember-me />
 	</http>
+	
 
-	<authentication-manager>
-		<authentication-provider>
-		
-			<user-service>
-				<user name="admin" password="1111" authorities="ROLE_ADMIN, ROLE_USER" />
-				<user name="user1" password="1111" authorities="ROLE_USER" />
-				<user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
-			</user-service>
-			<jdbc-user-service data-source-ref="dataSource" />
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="bawlUserDetailsService">
+			<password-encoder ref="encoder" />
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager>	
+	
+	<beans:bean id="bawlUserDetailsService"
+		class="UserDetailsService"></beans:bean>
+
+	<beans:bean id="encoder" class="com.test.rest.utils.MD5">
+	</beans:bean>
 </beans:beans>

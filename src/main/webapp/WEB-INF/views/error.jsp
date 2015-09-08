@@ -7,6 +7,6 @@
 <title>Error ocured</title>
 </head>
 <body>
-You are already confirmed
+Your account is already confirmed!
 </body>
 </html>

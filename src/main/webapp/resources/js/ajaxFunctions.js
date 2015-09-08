@@ -27,6 +27,7 @@ function sendAjaxForRegister() {
        		});
 		});
 }
+
 function checkEmailExistingAjax(){
 	$.ajax({
 		url: window.location.pathname + '/checEmail',
@@ -44,4 +45,36 @@ function checkEmailExistingAjax(){
 		return false;
 		console.log("error");
 	})
+}
+
+// used in revertString.jsp
+function doRevertStringAjax(){
+		$.ajax({
+	 	contentType:'application/json',
+	 	type: 'POST',
+	    url: 'string/'+ $('#string').val(),
+	    headers: {
+	        "KEY":key,
+	    },
+		success: function(data) {
+			str = data.text;
+			console.log(data);
+		}
+	 }).complete(function(data) {
+		 
+		 if(data.status == "200"){
+			$('.response').empty();
+			$('.response').append('response: ' + str);
+		 } else if(data.status == "400"){
+			 $('.response').empty();
+			 $('.response').append('your token is expired please refresh page');
+		 } else if(data.status == "500"){
+			 $('.response').empty();
+			 $('.response').append('Server error');
+		 } else {
+			console.log(data);
+			$('.response').empty();
+			$('.response').append('unknown error');
+		 }
+	});
 }

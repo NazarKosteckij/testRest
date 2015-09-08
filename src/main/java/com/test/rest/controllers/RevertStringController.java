@@ -43,6 +43,6 @@ public class RevertStringController {
 		else
 			throw new TokenException();
 		
-		return "revertedString";
+		return "getRevertedString";
 	}
 }

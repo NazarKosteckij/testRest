@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
 	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>	
 	<script src="<c:url value="/resources/js/materialize.js"/>"></script>
+	<script src="<c:url value="/resources/js/ajaxFunctions.js"/>"></script>
+	<script src="<c:url value="/resources/js/revertString.js"/>"></script>
 	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Home</title>
@@ -12,45 +14,7 @@
 	<script type="text/javascript">
 
 	var key = '${authKey}';
-	 $(document).ready(function(){
-		
-		 $("#send").click(function(){ 
-		  if($('#string').val()!== ""){
-			 var str = null;
-			 $.ajax({
-				 	contentType:'application/json',
-				 	type: 'POST',
-				    url: 'string/'+ $('#string').val(),
-				    headers: {
-				        "KEY":key,
-				    },
-					success: function(data) {
-						str = data.text;
-						console.log(data);
-					}
-				 }).complete(function(data) {
-					 
-					 if(data.status == "200"){
-						$('.response').empty();
-						$('.response').append('response: ' + str);
-					 } else if(data.status == "400"){
-						 $('.response').empty();
-						 $('.response').append('your token is invalid please refresh page');
-					 } else if(data.status == "500"){
-						 $('.response').empty();
-						 $('.response').append('Server error');
-					 } else {
-						console.log(data);
-						$('.response').empty();
-						$('.response').append('unknown error');
-					 }
-				});
-		 	} else {
-				$('.response').empty();
-				$('.response').append('enter string');
-		 	}
-		 });
-	 });
+	
 	</script>
 </head>
 <body>

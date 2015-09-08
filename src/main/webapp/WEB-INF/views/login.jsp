@@ -37,7 +37,7 @@
 		<font color="red"> Error
 		: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 	</c:if>
-	<form method="POST" action="<c:url value="/j_spring_security_check" />">
+	<form method="POST" id="login-form" action="<c:url value="/j_spring_security_check" />">
 			
 		<div class="input-field col s6">
 			<input id="email"  type="text" name="j_username" class="validate">
@@ -53,10 +53,16 @@
     			 <label for="remember">remember</label>
     		 </p>
     		</div>
-			<input class="btn" type="submit" value="Login" />
+			<a class="btn" onclick="preprocessData()"> Login</a>
 			<input class="btn" type="reset" value="Reset" />
 			
 	</form>
+	<script type="text/javascript">
+	function preprocessData(){	
+		$('#password').val(calcMD5($('#password').val()));
+		$("#login-form").submit();
+	}
+	</script>
 </div>
 </body>
 </html>

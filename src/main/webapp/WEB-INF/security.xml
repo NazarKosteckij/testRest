@@ -9,7 +9,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/login?error=true" />
 		<logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
-		<intercept-url pattern="/login" access="ROLE_ANONYMOUS"/>
+		<intercept-url pattern="/revert" access="ROLE_USER"/>
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 		
 	</http>
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	</authentication-manager>	
 	
 	<beans:bean id="bawlUserDetailsService"
-		class="UserDetailsService"></beans:bean>
+		class="com.test.rest.services.security.UserDetailsService"></beans:bean>
 
 	<beans:bean id="encoder" class="com.test.rest.utils.MD5">
 	</beans:bean>

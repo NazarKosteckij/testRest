@@ -49,11 +49,11 @@ public class UserModel {
 	
 	@Column(name="confirmationHash")
 	private String confirmationHash;
-	
+
 	public UserModel() {
-	
-	}	
-	
+
+	}
+
 	public String getConfirmationHash() {
 		return confirmationHash;
 	}

@@ -1,5 +1,7 @@
 package com.test.rest.utils.email;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -12,14 +14,10 @@ public class EmailSender {
 	
 	private Session session;
 
-	public void init(){
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+	private Properties properties;
 
-		session = Session.getInstance(props,
+	public void init(){
+		session = Session.getInstance(properties,
 				  new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(username, password);
@@ -43,18 +41,18 @@ public class EmailSender {
 	/**
 	 * Sends mail to user
 	 * @param email address of user
-	 * @param message 
+	 * @param messageItem
 	 * @param subject (title)
 	 */
-	public void sendMessage(String toEmail, String msg, String subject) {
+	public void sendMessage(String email, String messageItem, String subject) {
 		
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(toEmail));
+				InternetAddress.parse(email));
 			message.setSubject(subject);
-			message.setText(msg);
+			message.setText(messageItem);
 			Transport.send(message);
 			System.out.println("Done");
 
@@ -62,5 +60,9 @@ public class EmailSender {
 			//TODO: create own exception and handle it
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 }

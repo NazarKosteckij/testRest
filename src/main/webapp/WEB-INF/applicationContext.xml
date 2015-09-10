@@ -83,7 +83,6 @@
          <beans:props>
             <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
             <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
-            
             <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
             <beans:prop key="hibernate.format_sql">true</beans:prop>
 			<beans:prop key="hibernate.use_sql_comments">true</beans:prop>
@@ -125,11 +124,6 @@
     <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"></beans:bean>
     <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"></beans:bean>
     <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
-  <beans:import resource="security.xml"/>
-	<!--<beans:bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
-		<beans:property name="privateKey" value="6LexOQsTAAAAAOk5IJ3gaG9XwJaearGpdVzsCcqa" />
-		<beans:property name="publicKey" value="6LexOQsTAAAAAPyYfVzlMplaUd8vFbFNSjIu-uh7" />
-		<beans:property name="includeNoscript" value="false" />
-	</beans:bean>-->
+
 </beans:beans>
 

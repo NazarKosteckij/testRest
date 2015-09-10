@@ -7,15 +7,7 @@ function sendAjaxForRegister() {
         headers:{
         	"g-recaptcha-response" : $('#g-recaptcha-response').val()
         },
-        data: formToJSON(),
-        error: function(data) {
-        	console.log(data);
-        	if (data.status==400) {
-	          	console.log('sd');
-	            window.location.href = "register";
-        	}
-
-       }
+        data: formToJSON()
 	}).done(
 		function(data) {
 			window.localStorage['clear']();
@@ -25,6 +17,13 @@ function sendAjaxForRegister() {
        				window.location.href = "/rest" 
        			}
        		});
+		}).fail(function(data) {
+			console.log(data);
+			if (data.status==400) {
+				console.log('sd');
+				window.location.href = "register";
+			}
+
 		});
 }
 
@@ -55,26 +54,23 @@ function doRevertStringAjax(){
 	    url: 'string/'+ $('#string').val(),
 	    headers: {
 	        "KEY":key,
-	    },
-		success: function(data) {
-			str = data.text;
-			console.log(data);
 		}
 	 }).complete(function(data) {
-		 
-		 if(data.status == "200"){
-			$('.response').empty();
-			$('.response').append('response: ' + str);
-		 } else if(data.status == "400"){
-			 $('.response').empty();
-			 $('.response').append('your token is expired please refresh page');
-		 } else if(data.status == "500"){
-			 $('.response').empty();
-			 $('.response').append('Server error');
-		 } else {
+			str = data.text;
 			console.log(data);
-			$('.response').empty();
-			$('.response').append('unknown error');
-		 }
-	});
+			 if(data.status == "200"){
+				$('.response').empty();
+				$('.response').append('response: ' + str);
+			 } else if(data.status == "400"){
+				 $('.response').empty();
+				 $('.response').append('your token is expired please refresh page');
+			 } else if(data.status == "500"){
+				 $('.response').empty();
+				 $('.response').append('Server error');
+			 } else {
+				console.log(data);
+				$('.response').empty();
+				$('.response').append('unknown error');
+			 }
+		});
 }

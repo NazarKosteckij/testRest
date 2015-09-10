@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Error ocured</title>
+<title>Access denied </title>
 </head>
 <body>
-	403
+<jsp:include page="navigationBar.jsp" />
+<div class="flow-text center red">403</div>
+
 </body>
 </html>

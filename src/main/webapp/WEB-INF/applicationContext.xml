@@ -126,6 +126,10 @@
     <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"></beans:bean>
     <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
   <beans:import resource="security.xml"/>
-    
+	<!--<beans:bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+		<beans:property name="privateKey" value="6LexOQsTAAAAAOk5IJ3gaG9XwJaearGpdVzsCcqa" />
+		<beans:property name="publicKey" value="6LexOQsTAAAAAPyYfVzlMplaUd8vFbFNSjIu-uh7" />
+		<beans:property name="includeNoscript" value="false" />
+	</beans:bean>-->
 </beans:beans>
 

@@ -13,19 +13,9 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <title>Confirm registration</title>
 </head>
-<nav class="top-nav">
- <div class="container"> 
- 	<ul id="nav-mobile" class="left">
-	 	<li> <a href="/rest/">Main</a> </li>
-	 	<li> <a href="register">Register</a>  </li>
-	 	<li> <a href="revert">Revert string</a></li>
-	</ul>
-	<ul id="nav-mobile" class="right" >
-	 	<li> <a href="login">Login</a> </li>
-	 	<li> <a href="logout">Logout</a> </li>
- 	</ul>
-  </div>
-</nav>
+
+<jsp:include page="navigationBar.jsp" />
+
 <body>
 	<p class="center flow-text">
 		${status}

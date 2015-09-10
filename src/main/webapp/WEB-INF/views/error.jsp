@@ -7,6 +7,9 @@
 <title>Error ocured</title>
 </head>
 <body>
-Your account is already confirmed!
+<jsp:include page="navigationBar.jsp" />
+<div class="flow-text center">
+    our account is already confirmed!
+</div>
 </body>
 </html>

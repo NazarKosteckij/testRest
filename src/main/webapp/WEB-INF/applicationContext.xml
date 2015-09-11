@@ -36,9 +36,7 @@
 	</beans:bean>
 	
 	<beans:bean id="userService" class="com.test.rest.services.UserServiceImpl"/>
- 
-	<beans:bean id="confirmRegistrationService" class="com.test.rest.services.ConfirmRegistrationServiceImpl"/>
- 	
+
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
  	<beans:property name="emailSender" ref="emailSender"></beans:property>
  	</beans:bean>
@@ -64,8 +62,7 @@
 		</beans:property>
  	</beans:bean>
  	<!-- Dao's Beans -->
-	
-	<beans:bean id="confirmRegistrationDao" class="com.test.rest.dao.ConfirmRegistrationDaoImpl"/>
+
  	
 	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
    		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>

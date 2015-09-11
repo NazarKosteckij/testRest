@@ -11,11 +11,16 @@ public class EmailSender {
 	
 	private String username;
 	private String password;
-	
 	private Session session;
-
 	private Properties properties;
 
+	private final String MESSAGE_HEADER = " <h1 align=\"center\" style=\"color: #fff;\n" +
+			"    background-color: #15CAA2;\n" +
+			"    width: 100%;\n" +
+			"    height: 56px;\n" +
+			"    line-height: 56px;\"> Hello! I'm TestRest </h1> <body align=\"center\">";
+
+	private final String MESSAGE_FOOTER = " </body> ";
 	public void init(){
 		session = Session.getInstance(properties,
 				  new javax.mail.Authenticator() {
@@ -24,7 +29,7 @@ public class EmailSender {
 					}
 				  });
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -52,7 +57,7 @@ public class EmailSender {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(email));
 			message.setSubject(subject);
-			message.setText(messageItem);
+			message.setContent(MESSAGE_HEADER + messageItem + MESSAGE_FOOTER, "text/html");
 			Transport.send(message);
 			System.out.println("Done");
 

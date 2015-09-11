@@ -33,7 +33,7 @@ public interface UserService {
 	 * Changes user's status to {@link UserStatuses.STATUS_CONFIRMED}
 	 * @param user
 	 */
-	public void confirmRegistration(UserModel user);
+	public void confirmRegistration(String token);
 	
 	/**
 	 * Checks email existing in database

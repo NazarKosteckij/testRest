@@ -14,14 +14,16 @@ import com.test.rest.utils.MD5;
 
 public class UserServiceImpl implements UserService {
 
+	private final String CONFIRMATION_URL = "http://localhost:8080/rest/confirmation/" ;
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
-	private ConfirmRegistrationService confirmRegistrationService;
-	
-	private UserValiator userValiator = new UserValiator();
-	
+	private EmailService emailService;
+
+	private UserValidator userValidator = new UserValidator();
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -29,9 +31,9 @@ public class UserServiceImpl implements UserService {
 		validateUser(user);
 		user.setConfirmationHash(MD5.getMD5(user.getEmail()));
 		userDao.create(user);
-		confirmRegistrationService.sendConfirmationMail(user);
+		emailService.sendConfirmation(user.getEmail(), CONFIRMATION_URL + user.getConfirmationHash());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -49,13 +51,13 @@ public class UserServiceImpl implements UserService {
 	 */
 	public void updateUser(UserModel user) {
 		validateUser(user);
-		
+
 		if(user.getId()>0)
 			userDao.update(user);
-		else 
-			throwException();	
+		else
+			throwException();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -63,56 +65,89 @@ public class UserServiceImpl implements UserService {
 		validateUser(user);
 		userDao.delete(user);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public boolean checkEmailExisting(String email) {
-		if(userValiator.validateEmail(email)){
+		if(userValidator.validateEmail(email)){
 			return userDao.isEmailExists(email);
 		} else return false;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
-	public void confirmRegistration(UserModel user) {
-		user.setStatus(UserStatuses.STATUS_CONFIRMED);
-		this.updateUser(user);
+	public void confirmRegistration(String token) {
+		UserModel user = userDao.getByToken(token);
+		if(userIsNotConfirmedAndTokenValid(user, token)){
+			emailService.sendNotification(user.getEmail(), "Your registration is completed.");
+			user.setStatus(UserStatuses.STATUS_CONFIRMED);
+			this.updateUser(user);
+		}
+		else {
+			throw new IllegalArgumentException("Invalid token for this user or user already confirmed");
+		}
+
 	}
-	
-	
+
 	public UserModel getByEmail(String email) {
 		return userDao.getByEmail(email);
 	}
 
-	
-	private void validateUser(UserModel user){
-		userValiator.validateUser(user);
+	public EmailService getEmailService() {
+		return emailService;
 	}
-	
-	private void throwException(){
+
+	public void setEmailService(EmailService emailService) {
+		this.emailService = emailService;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+
+	private void validateUser(UserModel user){
+		userValidator.validateUser(user);
+	}
+
+	public void throwException(){
 		throw new NullPointerException();
 	}
-	
-protected class UserValiator{
-	private static final String EMAIL_PATTERN = 
+
+	/**
+	 * @param user
+	 * @param token
+	 * @return true when user status isn't "confirmed" and token belongs this user else returns false
+	 */
+	private boolean userIsNotConfirmedAndTokenValid(final UserModel user, final String token) {
+		return !user.getStatus().equals(UserStatuses.STATUS_CONFIRMED) && token.equals(MD5.getMD5(user.getEmail()));
+	}
+
+
+protected class UserValidator{
+	private static final String EMAIL_PATTERN =
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	
+
 	private Matcher matcher;
 
-	public UserValiator() {
-		
+	public UserValidator() {
+
 	}
-	
+
 	public void validateUser(UserModel user){
 		if(user != null){
 			if(user.getRole()==null)
 				user.setRole(UserRoles.ROLE_USER);
 			if(user.getStatus()==null)
 				user.setStatus(UserStatuses.STATUS_UNCONFIRMED);
-			
+
 			if(validateEmail(user.getEmail()) && validateGender(user.getGender())){
 				if(validatePassword(user.getPassword())){
 					

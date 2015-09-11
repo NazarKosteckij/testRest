@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
 		emailSender.sendMessage(email, message, "Notification mail");
 	}
 
-	public void sendConfirmarion(String email, String link) {
+	public void sendConfirmation(String email, String link) {
 		String message = "Your link for confirm registration: " + link;
 		emailSender.sendMessage(email, message, "Confirm registration ");
 	}

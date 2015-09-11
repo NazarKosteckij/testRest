@@ -11,5 +11,5 @@ public interface EmailService {
 	 * Sends register confirmation link on email
 	 * @param email
 	 */
-	public void sendConfirmarion(String email, String link);
+	public void sendConfirmation(String email, String link);
 }

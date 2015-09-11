@@ -123,5 +123,6 @@
     <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
 	<beans:import resource="security.xml"/>
 
+
 </beans:beans>
 

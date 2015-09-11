@@ -125,7 +125,5 @@
 	<beans:import resource="security.xml"/>
 
 
-	<beans:import resource="security.xml"/>
-
 </beans:beans>
 

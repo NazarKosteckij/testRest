@@ -28,7 +28,6 @@ public class ConfirmRegistrationController {
 		return "confirm";
 	}
 
-
 	@RequestMapping("/{token}")
 	public String confirmToken(@PathVariable("token") String token, Model model, HttpServletResponse response) {
 		userService.confirmRegistration(token);

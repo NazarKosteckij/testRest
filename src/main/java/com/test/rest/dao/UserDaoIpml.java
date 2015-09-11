@@ -2,6 +2,7 @@ package com.test.rest.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,7 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 	
 	@SuppressWarnings("unchecked")
 	public boolean isEmailExists(String email) {
-		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where email='" + email + "'" ).addEntity(UserModel.class).list();
+		List<UserModel> users = getSession().createQuery(" from com.test.rest.models.UserModel  User where User.email=:email").setString("email", email).list();
 		if(users.size()!=0)
 			return false;
 		else 
@@ -46,7 +47,7 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	public UserModel getByEmail(String email) {
-		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where email='" + email + "'" ).addEntity(UserModel.class).list();
+		List<UserModel> users = getSession().createQuery(" from com.test.rest.models.UserModel  User where User.email=:email").setString("email", email).list();
 	return (UserModel) users.get(0);
 		
 	}
@@ -54,7 +55,7 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public UserModel getByToken(String token) {
-		List<UserModel> users = getSession().createSQLQuery("SELECT * from users where confirmationHash='" + token + "'" ).addEntity(UserModel.class).list();
+		List<UserModel> users = getSession().createQuery(" from com.test.rest.models.UserModel  User where User.confirmationHash=:confirmationHash").setString("confirmationHash", token).list();
 		return (UserModel) users.get(0);
 	}
 }

@@ -1,5 +1,6 @@
 package com.test.rest.services;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +24,16 @@ public class UserServiceImpl implements UserService {
 	private EmailService emailService;
 
 	private UserValidator userValidator = new UserValidator();
+
+	/**
+	 * {@inheritDoc}
+	 * @return
+	 */
+	@Override
+	public List<UserModel> getAll() {
+
+		return userDao.getAll();
+	}
 
 	/**
 	 * {@inheritDoc}

@@ -17,15 +17,20 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 		getSession().flush();
 	}
 
-	
+	@Override
+	public List<UserModel> getAll() {
+		List<UserModel> users = getSession().createQuery(" from com.test.rest.models.UserModel  User").list();
+		return users;
+	}
+
+
 	public UserModel read(Integer id) {
-		getSession().load(id, UserModel.class);
-		return null;
+		return (UserModel) getSession().get(UserModel.class, id);
 	}
 
 	
 	public void update(UserModel user) {
-		Session session=  getSession();
+		Session session = getSession();
 		session.update(user);
 		session.flush();
 	}

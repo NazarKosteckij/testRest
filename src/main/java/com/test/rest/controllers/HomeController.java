@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Handles requests for the application home page.
  */
-@PreAuthorize(value="hasRole('ROLE_ADMIN')")
 @Controller
 public class HomeController {
 	

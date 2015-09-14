@@ -3,7 +3,16 @@ package com.test.rest.services;
 import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.models.UserModel;
 
+import java.util.List;
+
 public interface UserService {
+
+	/**
+	 * Gets all users from database
+	 * @return List of users
+	 */
+	public List<UserModel> getAll();
+
 	/**
 	 * Creates user in database
 	 * @param user
@@ -31,7 +40,7 @@ public interface UserService {
 	
 	/**
 	 * Changes user's status to {@link UserStatuses.STATUS_CONFIRMED}
-	 * @param user
+	 * @param token
 	 */
 	public void confirmRegistration(String token);
 	

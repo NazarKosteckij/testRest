@@ -56,7 +56,7 @@ function doRevertStringAjax(){
 	        "KEY":key,
 		}
 	 }).complete(function(data) {
-			str = data.text;
+			str = JSON.parse(data.responseText).text;
 			console.log(data);
 			 if(data.status == "200"){
 				$('.response').empty();

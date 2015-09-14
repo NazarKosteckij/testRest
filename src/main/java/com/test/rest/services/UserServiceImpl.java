@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.test.rest.dto.UserDto;
+import com.test.rest.utils.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.test.rest.contstants.users.UserGender;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private EmailService emailService;
 
+	@Autowired
+	UserMapper userMapper;
+
 	private UserValidator userValidator = new UserValidator();
 
 	/**
@@ -38,7 +43,8 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void addUser(UserModel user) {
+	public void addUser(UserDto userDto) {
+		UserModel user = userMapper.createUserFromDto(userDto);
 		validateUser(user);
 		user.setConfirmationHash(MD5.getMD5(user.getEmail()));
 		userDao.create(user);
@@ -48,9 +54,9 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public UserModel getById(Integer id) {
+	public UserDto getById(Integer id) {
 		if(id>0)
-			return userDao.read(id);
+			return userMapper.userToDto(userDao.read(id));
 		else {
 			throwException();
 			return null;
@@ -60,7 +66,8 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void updateUser(UserModel user) {
+	public void updateUser(UserDto userDto) {
+		UserModel user = userMapper.createUserFromDto(userDto);
 		validateUser(user);
 
 		if(user.getId()>0)
@@ -94,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		if(userIsNotConfirmedAndTokenValid(user, token)){
 			emailService.sendNotification(user.getEmail(), "Your registration is completed.");
 			user.setStatus(UserStatuses.STATUS_CONFIRMED);
-			this.updateUser(user);
+			userDao.update(user);
 		}
 		else {
 			throw new IllegalArgumentException("Invalid token for this user or user already confirmed");
@@ -102,8 +109,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public UserModel getByEmail(String email) {
-		return userDao.getByEmail(email);
+	public UserDto getByEmail(String email) {
+		UserModel user =  userDao.getByEmail(email);
+		return userMapper.userToDto(user);
 	}
 
 	public EmailService getEmailService() {
@@ -132,7 +140,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * @param user
+	 * @param user {@link UserModel}
 	 * @param token
 	 * @return true when user status isn't "confirmed" and token belongs this user else returns false
 	 */

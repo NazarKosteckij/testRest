@@ -1,6 +1,7 @@
 package com.test.rest.services;
 
 import com.test.rest.contstants.users.UserStatuses;
+import com.test.rest.dto.UserDto;
 import com.test.rest.models.UserModel;
 
 import java.util.List;
@@ -17,20 +18,20 @@ public interface UserService {
 	 * Creates user in database
 	 * @param user
 	 */
-	public void addUser(UserModel user);
+	public void addUser(UserDto user);
 	
 	/**
 	 * Gets user by id
 	 * @param id
 	 * @return {@link UserModel}
 	 */
-	public UserModel getById(Integer id);
+	public UserDto getById(Integer id);
 	
 	/**
 	 * Updates user
 	 * @param user
 	 */
-	public void updateUser(UserModel user);
+	public void updateUser(UserDto user);
 	
 	/**
 	 * Deletes user
@@ -57,5 +58,5 @@ public interface UserService {
 	 * @param email
 	 * @return {@link UserModel}
 	 */
-	public UserModel getByEmail(String email);
+	public UserDto getByEmail(String email);
 }

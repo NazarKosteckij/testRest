@@ -40,7 +40,11 @@
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
  	<beans:property name="emailSender" ref="emailSender"></beans:property>
  	</beans:bean>
- 	
+
+	<beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"></beans:bean>
+
+	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"></beans:bean>
+
  	<beans:bean id="emailSender" class="com.test.rest.utils.email.EmailSender" init-method="init">
  		<beans:property name="username" value="${mail.acount.email}"/>
  		<beans:property name="password" value="${mail.acount.password}"/>
@@ -100,7 +104,7 @@
     class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <beans:property name="sessionFactory" ref="sessionFactory" />
    	</beans:bean>
-   	
+
   	<beans:bean id="simpleMappingExceptionResolver"
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <beans:property name="exceptionMappings">
@@ -112,16 +116,17 @@
         <beans:property name="defaultErrorView" value="error"/>
         <beans:property name="exceptionAttribute" value="ex"/>
     </beans:bean>
-    
+
     <beans:bean id="localExceptionHandler" class="com.test.rest.exception.LocalExceptionHandler" scope="prototype">
     	<!-- Choose exception handler -->
     	<beans:constructor-arg name="handler" ref="tokenExceptionHandler"></beans:constructor-arg>
     </beans:bean>
-    
+
     <!-- Exception Handlers -->
     <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"></beans:bean>
     <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"></beans:bean>
     <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
+
 	<beans:import resource="security.xml"/>
 
 

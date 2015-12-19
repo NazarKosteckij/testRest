@@ -28,26 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	@Autowired
-	private DeviceDao deviceDao;
-
-	@Autowired
-	StatusUpdaterService statusUpdaterService;
-
-	@Autowired
-	UserDao userDao;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws NoSuchProviderException
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
-		List l = userDao.getAll();
-		try {
-			statusUpdaterService.updateStatus();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "home";
 	}
 	

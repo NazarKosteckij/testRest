@@ -14,6 +14,11 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

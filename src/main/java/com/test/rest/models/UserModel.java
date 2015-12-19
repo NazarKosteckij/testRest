@@ -1,12 +1,9 @@
 package com.test.rest.models;
 
 import java.sql.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Check;
 
@@ -49,6 +46,18 @@ public class UserModel {
 	
 	@Column(name="confirmationHash")
 	private String confirmationHash;
+
+	@OneToMany(mappedBy = "owner")
+	private List<DeviceModel> devices;
+
+	public List<DeviceModel> getDevices() {
+		return devices;
+	}
+
+	public void setDevices(List<DeviceModel> devices) {
+		this.devices = devices;
+	}
+
 
 	public UserModel() {
 

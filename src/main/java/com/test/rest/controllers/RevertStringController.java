@@ -7,7 +7,9 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.rest.contstants.users.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class RevertStringController {
 	
 	@Autowired
 	private TokenService rsa;
-	
+	@Secured(value = UserRoles.ROLE_USER)
 	@RequestMapping(value = "/revert", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws NoSuchAlgorithmException, NoSuchProviderException {
 		String key = rsa.getPublicKey();

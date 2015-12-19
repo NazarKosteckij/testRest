@@ -4,18 +4,7 @@ import com.test.rest.models.UserModel;
 
 import java.util.List;
 
-public interface UserDao {
-	
-	public void create(UserModel user);
-
-	public List<UserModel> getAll();
-
-	public UserModel read(Integer id);
-
-	public void update(UserModel user);
-
-	public void delete(UserModel user);
-	
+public interface UserDao extends Dao<UserModel> {
 	public boolean isEmailExists(String email);
 	
 	public UserModel getByEmail(String email);

@@ -67,10 +67,17 @@
  	</beans:bean>
  	<!-- Dao's Beans -->
 
- 	
+
 	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
-   		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
-    </beans:bean>
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
+	<beans:bean id="deviceDao" class="com.test.rest.dao.DeviceDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
+	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.GetStatusRequestDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
+
 	<context:property-placeholder 
 		location="classpath:database.properties, 
 				classpath:email.properties"
@@ -84,11 +91,12 @@
          <beans:props>
             <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
             <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
-            
+
             <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
             <beans:prop key="hibernate.format_sql">true</beans:prop>
 			<beans:prop key="hibernate.use_sql_comments">true</beans:prop>
          </beans:props>
+		  
       </beans:property>
    </beans:bean>
    

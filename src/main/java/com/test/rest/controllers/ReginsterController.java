@@ -29,7 +29,7 @@ public class ReginsterController {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String register(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws ConfirmationRegistrationException {
 		return "register";
@@ -40,7 +40,7 @@ public class ReginsterController {
 		String gRecaptchaResponse = request.getHeader("g-recaptcha-response");
 	    
 		if (VerifyCaptcha.verify(gRecaptchaResponse)){
-	    	userService.addUser(UserMapper.creaUserFromDto(user));
+	    	userService.addUser(user);
 	    } else {
 	    	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	    }

@@ -14,16 +14,39 @@ import javax.xml.ws.ServiceMode;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Nazar on 19.12.2015.
  */
 @Service
-public class StatusUpdaterService {
+public class StatusUpdaterService extends TimerTask {
 
     @Autowired
     GetStatusRequestDao getStatusRequestDao;
+
+    public StatusUpdaterService(){
+        System.out.print("======= Created new StatusUpdaterService ========== \n");
+
+        Timer timer = new Timer();
+        timer.schedule(this, 1000*60);
+
+    }
+
+    @Override
+    public void run() {
+        System.out.print("Date "  + new Date().toString() + "\n");
+        try {
+            this.updateStatus();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateStatus() throws IOException, UnirestException {
         List<GetStatusRequestModel> requests = getStatusRequestDao.getAll();

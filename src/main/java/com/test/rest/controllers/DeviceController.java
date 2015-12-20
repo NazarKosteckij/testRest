@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 @Controller
 public class DeviceController {

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Назар on 18.12.2015.
+ * Created by Nazar on 18.12.2015.
  */
 @Table(name="devices")
 @Entity

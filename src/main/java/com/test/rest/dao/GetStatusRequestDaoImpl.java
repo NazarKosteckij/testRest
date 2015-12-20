@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 
 public class GetStatusRequestDaoImpl extends HibernateDaoSupport implements GetStatusRequestDao {

@@ -7,7 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import java.util.List;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
 

@@ -7,7 +7,7 @@ import com.test.rest.models.UserModel;
 import java.util.List;
 
 /**
- * Created by Назар on 20.12.2015.
+ * Created by Nazar on 20.12.2015.
  */
 public interface CrudService<T> {
     /**

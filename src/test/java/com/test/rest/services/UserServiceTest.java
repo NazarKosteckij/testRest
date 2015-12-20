@@ -11,22 +11,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 /**
- * Created by ����� on 20.12.2015.
+ * Created by Nazar on 20.12.2015.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
-    @Mock
-    UserServiceImpl userService;
 
+    UserServiceImpl userService;
 
     @Before
     public void setUp() throws Exception {
-        Mockito.when(userService.getAll()).thenCallRealMethod();
+
     }
 
     @Test

@@ -6,7 +6,7 @@ import com.test.rest.constants.requests.RequestTypes;
 import javax.persistence.*;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 @Table(name="requests")
 @Entity

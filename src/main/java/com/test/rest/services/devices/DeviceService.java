@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by Назар on 20.12.2015.
+ * Created by Nazar on 20.12.2015.
  */
 @Service
 public class DeviceService implements CrudService<DeviceModel>{

@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 @Table(name="commands")
 @Entity

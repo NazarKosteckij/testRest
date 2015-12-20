@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by Назар on 19.12.2015.
+ * Created by Nazar on 19.12.2015.
  */
 @Service
 public class StatusUpdaterService {

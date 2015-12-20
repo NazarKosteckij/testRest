@@ -21,22 +21,23 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class UserServiceImpl implements UserService , org.springframework.security.core.userdetails.UserDetailsService {
+public class UserServiceImpl implements UserService , UserDetailsService {
 
 	private final String CONFIRMATION_URL = "http://localhost:8080/rest/confirmation/" ;
 
 	@Autowired
-	private UserDao userDao;
+	protected UserDao userDao;
 
 	@Autowired
-	private EmailService emailService;
+	protected EmailService emailService;
 
 	@Autowired
-	UserMapper userMapper;
+	protected UserMapper userMapper;
 
-	private UserValidator userValidator = new UserValidator();
+	protected UserValidator userValidator = new UserValidator();
 
 	/**
 	 * {@inheritDoc}

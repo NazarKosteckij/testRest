@@ -73,7 +73,7 @@
    		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
     </beans:bean>
 	
-	<beans:bean id="userService" class="com.test.rest.services.UserServiceImpl"/>
+	<beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
   	<beans:bean id="simpleMappingExceptionResolver"
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <beans:property name="exceptionMappings">

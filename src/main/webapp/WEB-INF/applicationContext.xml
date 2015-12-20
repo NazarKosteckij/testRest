@@ -35,7 +35,7 @@
 		<beans:property name="size" value="12"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="userService" class="com.test.rest.services.UserServiceImpl"/>
+	<beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
 
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
  	<beans:property name="emailSender" ref="emailSender"></beans:property>

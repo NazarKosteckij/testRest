@@ -1,7 +1,7 @@
 package com.test.rest.controllers;
 
 import com.test.rest.models.UserModel;
-import com.test.rest.services.UserService;
+import com.test.rest.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserFilterController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.test.rest.services;
+package com.test.rest.services.users;
 
 import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.dto.UserDto;

@@ -17,11 +17,7 @@
 <body>
 <jsp:include page="navigationBar.jsp" />
 <div class="container">
-	<a href="<c:url value="/index" />">
-	
-	</a><br/>
-	
-	<c:if test="${not empty param.error}">
+  <c:if test="${not empty param.error}">
 		<font color="red"> Error
 		: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 	</c:if>

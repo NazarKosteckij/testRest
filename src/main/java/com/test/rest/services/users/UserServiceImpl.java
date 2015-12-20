@@ -1,10 +1,13 @@
-package com.test.rest.services;
+package com.test.rest.services.users;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.test.rest.dto.UserDto;
+import com.test.rest.services.EmailService;
 import com.test.rest.utils.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,8 +17,13 @@ import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.dao.UserDao;
 import com.test.rest.models.UserModel;
 import com.test.rest.utils.MD5;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService , org.springframework.security.core.userdetails.UserDetailsService {
 
 	private final String CONFIRMATION_URL = "http://localhost:8080/rest/confirmation/" ;
 
@@ -149,7 +157,62 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-protected class UserValidator{
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		try {
+			UserModel domainUser = userDao.getByEmail(username);
+
+			boolean enabled = true;
+			boolean accountNonExpired = true;
+			boolean credentialsNonExpired = true;
+			boolean accountNonLocked = true;
+
+			return new User(
+					domainUser.getEmail(),
+					domainUser.getPassword(),
+					enabled,
+					accountNonExpired,
+					credentialsNonExpired,
+					accountNonLocked,
+					getAuthorities(domainUser.getRole()));
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities(String role) {
+		List<GrantedAuthority> authList = getGrantedAuthorities(getRoles(role));
+		return authList;
+	}
+
+	public List<String> getRoles(String role) {
+		List<String> roles = new ArrayList<String>();
+
+		if (role.equals(UserRoles.ROLE_ADMIN)) {
+			roles.add("ROLE_ADMIN");
+			roles.add("ROLE_USER");
+
+		} else if (role.equals(UserRoles.ROLE_USER)) {
+			roles.add("ROLE_USER");
+
+		} else if (role.equals(UserRoles.ROLE_MODERATOR)) {
+			roles.add("ROLE_MODERATOR");
+		}
+
+		return roles;
+	}
+
+	public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (String role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role));
+		}
+		return authorities;
+	}
+
+
+
+	protected class UserValidator{
 	private static final String EMAIL_PATTERN =
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

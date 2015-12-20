@@ -1,4 +1,4 @@
-package com.test.rest.services;
+package com.test.rest.services.devices;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;

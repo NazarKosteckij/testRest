@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.rest.dto.UserDto;
 import com.test.rest.exception.ConfirmationRegistrationException;
-import com.test.rest.services.UserService;
+import com.test.rest.services.users.UserService;
 import com.test.rest.utils.VerifyCaptcha;
-import com.test.rest.utils.mappers.UserMapper;
-
 
 
 @Controller

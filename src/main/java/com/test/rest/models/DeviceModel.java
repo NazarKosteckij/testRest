@@ -23,6 +23,9 @@ public class DeviceModel {
     @Column(name="type")
     private String type;
 
+    @Column(name = "isAlive")
+    private  Boolean isAlive;
+
     @ManyToOne
     private UserModel owner;
 
@@ -69,10 +72,6 @@ public class DeviceModel {
         this.owner = owner;
     }
 
-    public DeviceModel(int id) {
-        this.id = id;
-    }
-
     public DeviceModel() {
     }
 
@@ -82,6 +81,14 @@ public class DeviceModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Boolean getIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(Boolean isAlive) {
+        this.isAlive = isAlive;
     }
 
 }

@@ -41,4 +41,24 @@ public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
         session.delete(o);
         session.flush();
     }
+
+    @Override
+    public List<DeviceModel> getAllOfUser(int userId) {
+        List<DeviceModel> devices = getSession()
+                .createQuery("from com.test.rest.models.DeviceModel  Device where Device.owner = :userId ")
+                .setInteger("userId", userId)
+                .list();
+        return devices;
+    }
+
+    @Override
+    public DeviceModel getUsersDevice(int userId, int deviceId) {
+        DeviceModel device = (DeviceModel) getSession()
+                .createQuery("from com.test.rest.models.DeviceModel  Device where Device.owner = :userId and Device.id = :deviceId")
+                .setInteger("userId", userId)
+                .setInteger("deviceId", deviceId)
+                .list()
+                .get(0);
+        return device;
+    }
 }

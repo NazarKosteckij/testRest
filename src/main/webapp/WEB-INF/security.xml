@@ -16,13 +16,10 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
 
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="userDetailsService">
+		<authentication-provider user-service-ref="userService">
 			<password-encoder ref="encoder" />
 		</authentication-provider>
 	</authentication-manager>	
-	
-	<beans:bean id="userDetailsService"
-		class="com.test.rest.services.security.UserDetailsService"></beans:bean>
 
 	<beans:bean id="encoder" class="com.test.rest.utils.MD5">
 	</beans:bean>

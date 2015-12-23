@@ -12,7 +12,8 @@
 		<org.springframework-version>3.2.14.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-	</properties>
+        <spring.batch.version>2.2.0.RELEASE</spring.batch.version>
+    </properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
@@ -213,7 +214,16 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.2.0.RELEASE</version>
 		</dependency>
-				
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>${spring.batch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-infrastructure</artifactId>
+            <version>${spring.batch.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>

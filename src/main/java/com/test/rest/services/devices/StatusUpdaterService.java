@@ -6,6 +6,10 @@ import com.test.rest.constants.requests.RequestReturnTypes;
 import com.test.rest.constants.requests.RequestTypes;
 import com.test.rest.dao.GetStatusRequestDao;
 import com.test.rest.models.GetStatusRequestModel;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.NonTransientResourceException;
+import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.net.www.http.HttpClient;
@@ -23,7 +27,7 @@ import java.util.TimerTask;
  * Created by Nazar on 19.12.2015.
  */
 @Service
-public class StatusUpdaterService extends TimerTask {
+public class StatusUpdaterService extends TimerTask implements ItemReader {
 
     @Autowired
     GetStatusRequestDao getStatusRequestDao;
@@ -56,10 +60,23 @@ public class StatusUpdaterService extends TimerTask {
                 String endpoint = requestModel.getDevice().getLocationUrl();
                 String path = requestModel.getPath();
                 String targetField = requestModel.getTargetField();
+                String value = "";
                 //get current value
-                requestModel.setCurrentValue(Unirest.get(endpoint + path).asJson().getBody().getObject().get(targetField).toString());
+                //TODO: Handle exception com.mashape.unirest.http.exceptions.UnirestException as "failed: connect timed out"
+                try {
+                    value = Unirest.get(endpoint + path).asJson().getBody().getObject().get(targetField).toString();
+                } catch (com.mashape.unirest.http.exceptions.UnirestException e){
+                    value = "No connection";
+                }
+                requestModel.setCurrentValue(value);
             }
             getStatusRequestDao.update(requestModel);
         }
+    }
+
+    @Override
+    public Object read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        this.run();
+        return null;
     }
 }

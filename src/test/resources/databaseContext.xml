@@ -40,11 +40,11 @@
 		<beans:property name="user" value="${jdbc.user}"/>
 		<beans:property name="password" value=""/>
 	</beans:bean>
-<!--
-	<jdbc:initialize-database>
+
+	<jdbc:initialize-database >
 		<jdbc:script location="classpath:db/sql/create-db.sql"/>
 		<jdbc:script location="classpath:db/sql/insert-data.sql"/>
-	</jdbc:initialize-database>-->
+	</jdbc:initialize-database>
 
 	 <beans:bean id="transactionManager"
     class="org.springframework.orm.hibernate3.HibernateTransactionManager">

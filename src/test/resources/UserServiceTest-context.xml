@@ -6,7 +6,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<import resource="classpath:testApplicationContext.xml" />
-	<tx:annotation-driven />
-	<context:property-placeholder location="classpath*:email.properties"/>
+	<import resource="classpath:databaseContext.xml" />
+
+	<bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="emailService" class="com.test.rest.mocks.MailServiceMock"></bean>
+	<bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
+
+
+
 </beans>

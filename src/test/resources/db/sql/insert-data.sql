@@ -1,0 +1,1 @@
+INSERT INTO test.users (id, birthdate, confirmationHash, email, firstName, gender, lastName, password, phone, role, status) VALUES (1, '2015-01-01', '4d886b147aeb54212ceaba67e7fd0fc1', 'silver_925@ukr.net', 'nazar', 'male', 'Fs', 'b59c67bf196a4758191e42f76670ceba', '626262', 'user', 'confirmed');

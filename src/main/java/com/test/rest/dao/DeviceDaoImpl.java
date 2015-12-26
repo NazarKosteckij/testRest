@@ -3,12 +3,15 @@ package com.test.rest.dao;
 import com.test.rest.models.DeviceModel;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Nazar on 19.12.2015.
  */
+
+@Transactional
 public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
 
     @Override

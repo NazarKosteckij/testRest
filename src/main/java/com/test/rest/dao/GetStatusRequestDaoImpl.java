@@ -4,13 +4,14 @@ import com.test.rest.models.GetStatusRequestModel;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Nazar on 19.12.2015.
  */
-
+@Transactional
 public class GetStatusRequestDaoImpl extends HibernateDaoSupport implements GetStatusRequestDao {
     @Override
     public void create(GetStatusRequestModel o) {

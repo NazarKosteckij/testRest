@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.net.www.http.HttpClient;
 
+import javax.annotation.Resource;
 import javax.xml.ws.ServiceMode;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,21 +27,14 @@ import java.util.TimerTask;
 /**
  * Created by Nazar on 19.12.2015.
  */
-@Service
-public class StatusUpdaterService extends TimerTask implements ItemReader {
+public class StatusUpdaterService   {
 
-    @Autowired
-    GetStatusRequestDao getStatusRequestDao;
+    private GetStatusRequestDao getStatusRequestDao;
 
     public StatusUpdaterService(){
         System.out.print("======= Created new StatusUpdaterService ========== \n");
-
-        Timer timer = new Timer();
-        timer.schedule(this, 1000*60);
-
     }
 
-    @Override
     public void run() {
         System.out.print("Date "  + new Date().toString() + "\n");
         try {
@@ -74,9 +68,11 @@ public class StatusUpdaterService extends TimerTask implements ItemReader {
         }
     }
 
-    @Override
-    public Object read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        this.run();
-        return null;
+    public void setGetStatusRequestDao(GetStatusRequestDao getStatusRequestDao) {
+        this.getStatusRequestDao = getStatusRequestDao;
+    }
+
+    public GetStatusRequestDao getGetStatusRequestDao() {
+        return getStatusRequestDao;
     }
 }

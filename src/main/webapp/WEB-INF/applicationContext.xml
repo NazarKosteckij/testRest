@@ -44,13 +44,13 @@
 
 
 
-	<beans:bean id="runScheduler" class="com.test.rest.constants.requests.Scheculder" />
+	<beans:bean id="scheduler" class="com.test.rest.constants.requests.Scheculder" />
 	<!-- Run every 30 seconds -->
 	<task:scheduled-tasks>
 		<!--
         <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" />
         -->
-		<task:scheduled ref="runScheduler" method="run" cron="*/30 * * * * *" />
+		<task:scheduled ref="scheduler" method="run" cron="*/30 * * * * *" />
 	</task:scheduled-tasks>
 
 	<!-- Beans of Services -->
@@ -66,12 +66,14 @@
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
  	<beans:property name="emailSender" ref="emailSender"></beans:property>
  	</beans:bean>
-
+	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
+		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao"></beans:property>
+ 	</beans:bean>
 	<beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"></beans:bean>
 
 	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"></beans:bean>
-
- 	<beans:bean id="emailSender" class="com.test.rest.utils.email.EmailSender" init-method="init">
+	<beans:bean id="deviceService" class="com.test.rest.services.devices.DeviceService"/>
+	<beans:bean id="emailSender" class="com.test.rest.utils.email.EmailSender" init-method="init">
  		<beans:property name="username" value="${mail.acount.email}"/>
  		<beans:property name="password" value="${mail.acount.password}"/>
 		<beans:property name="properties" >

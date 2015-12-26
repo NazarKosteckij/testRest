@@ -9,6 +9,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -18,8 +19,6 @@ import java.util.Date;
 
 @Component
 public class Scheculder {
-    @Autowired
-    private JobLauncher jobLauncher;
 
     @Autowired
     StatusUpdaterService statusUpdaterService;

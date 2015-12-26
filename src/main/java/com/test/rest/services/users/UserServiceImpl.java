@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import com.test.rest.dto.UserDto;
 import com.test.rest.services.EmailService;
 import com.test.rest.utils.mappers.UserMapper;
+import com.test.rest.utils.mappers.UserMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.test.rest.contstants.users.UserGender;
@@ -34,8 +35,7 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 	@Autowired
 	protected EmailService emailService;
 
-	@Autowired
-	protected UserMapper userMapper;
+	protected UserMapper userMapper = new UserMapperImpl();
 
 	protected UserValidator userValidator = new UserValidator();
 

@@ -14,15 +14,19 @@ public class UserMapperImpl implements UserMapper{
 	 * @return {@link UserDto}
 	 */
 	public UserDto userToDto(UserModel user) {
+		if (user == null)
+			return null;
+
 		UserDto userDto = new UserDto();
-		
-		userDto.setBirthdate(user.getBirthdate().toString());
+
+		if(user.getBirthdate() != null)
+			userDto.setBirthdate(user.getBirthdate().toString());
 		userDto.setEmail(user.getEmail());
 		userDto.setFirstName(user.getFirstName());
 		userDto.setGender(user.getGender());
 		userDto.setId(user.getId());
 		userDto.setLastName(user.getLastName());
-		userDto.setPassword(null);
+		userDto.setPassword(user.getPassword());
 		userDto.setPhone(user.getPhone());
 		userDto.setGender(user.getGender());
 		userDto.setRole(user.getRole());
@@ -37,8 +41,8 @@ public class UserMapperImpl implements UserMapper{
 	 */
 	public UserModel createUserFromDto(UserDto userDto) {
 		UserModel userModel = new UserModel();
-		
-		userModel.setBirthdate(Date.valueOf(userDto.getBirthdate()));
+		if (userDto.getBirthdate()!=null)
+			userModel.setBirthdate(Date.valueOf(userDto.getBirthdate()));
 		userModel.setEmail(userDto.getEmail());
 		userModel.setFirstName(userDto.getFirstName());
 		userModel.setGender(userDto.getGender());

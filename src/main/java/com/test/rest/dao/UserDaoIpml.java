@@ -80,9 +80,10 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 		List<UserModel> users = session.createQuery(" from com.test.rest.models.UserModel  User where User.email=:email").setString("email", email).list();
 
 		closeSession(session);
-
-		return (UserModel) users.get(0);
-		
+		if (users.size()!=0)
+			return (UserModel) users.get(0);
+		else
+			return null;
 	}
 
 	@Override

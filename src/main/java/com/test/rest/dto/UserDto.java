@@ -101,14 +101,29 @@ public class UserDto{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		return o.hashCode() == this.hashCode();
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 31 * email.hashCode();
+		return result;
+	}
+
 	@Override
 	public String toString() {
-			return "User: First Name - " + this.firstName + 
-					"; Last Name - " + this.lastName + 
-					"; Email - " + this.email + 
-					"; BirthDate - " + this.birthdate + 
-					"; Phone: " + this.phone + 
-					"; Gender - " + this.gender +
-					"; Password" + this.password;
+			return "User: First Name - " + this.firstName +
+					"; Last Name - " + this.lastName +
+					"; Email - " + this.email +
+					"; BirthDate - " + this.birthdate +
+					"; Phone: " + this.phone +
+					"; Gender - " + this.gender ;
 	}
 }

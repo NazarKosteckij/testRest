@@ -1,6 +1,8 @@
 package com.test.rest.services.users;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -88,7 +90,8 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void deleteUser(UserModel user) {
+	public void deleteUser(UserDto userDto) {
+		UserModel user = userMapper.createUserFromDto(userDto);
 		validateUser(user);
 		userDao.delete(user);
 	}
@@ -230,6 +233,9 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 				user.setRole(UserRoles.ROLE_USER);
 			if(user.getStatus()==null)
 				user.setStatus(UserStatuses.STATUS_UNCONFIRMED);
+
+			if(user.getBirthdate() != null)
+				user.setBirthdate((Date) Calendar.getInstance().getTime());
 
 			if(validateEmail(user.getEmail()) && validateGender(user.getGender())){
 				if(validatePassword(user.getPassword())){

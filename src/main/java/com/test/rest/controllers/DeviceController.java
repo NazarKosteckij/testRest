@@ -48,22 +48,10 @@ public class DeviceController {
         return "devices";
     }
 
-    @RequestMapping("/devices/")
-    public @ResponseBody List<DeviceModel> getDevices(){
-        return deviceService.getAll();
-    }
-
-    @RequestMapping("/devices/{id}")
-    public @ResponseBody DeviceModel getSingleDevice(@PathVariable int id){
-       return deviceService.read(id);
-    }
-    @RequestMapping("/users/{userId}/devices/")
-    public @ResponseBody List<DeviceModel>  getAllUsersDevices(@PathVariable int userId){
-        return deviceService.readAllUserDevices(userId);
-    }
-
-    @RequestMapping("/users/{userId}/devices/{deviceId}")
-    public @ResponseBody  DeviceModel getUserSingleDevice(@PathVariable int userId, @PathVariable int deviceId){
-        return deviceService.readUserDevice(userId, deviceId);
+    @Secured(value = UserRoles.ROLE_USER)
+    @RequestMapping(value = "/mydevices/{deviceId}", method = RequestMethod.GET)
+    public String showDeviceDetails(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response, Locale locale,ModelMap model, Principal principal ) {
+        model.addAttribute("methods",  deviceService.read(id).getGetStatusRequestModels());
+        return "methods";
     }
 }

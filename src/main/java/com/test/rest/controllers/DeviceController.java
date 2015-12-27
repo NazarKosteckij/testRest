@@ -48,10 +48,11 @@ public class DeviceController {
         return "devices";
     }
 
+    // TODO have some problems with it without login
     @Secured(value = UserRoles.ROLE_USER)
     @RequestMapping(value = "/mydevices/{deviceId}", method = RequestMethod.GET)
-    public String showDeviceDetails(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response, Locale locale,ModelMap model, Principal principal ) {
-        model.addAttribute("methods",  deviceService.read(id).getGetStatusRequestModels());
+    public String showDeviceDetails(@PathVariable Integer deviceId, HttpServletRequest request, HttpServletResponse response, Locale locale,ModelMap model, Principal principal ) {
+        model.addAttribute("methods",  deviceService.read(deviceId).getGetStatusRequestModels());
         return "methods";
     }
 }

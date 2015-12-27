@@ -6,10 +6,15 @@ import com.test.rest.constants.requests.RequestReturnTypes;
 import com.test.rest.constants.requests.RequestTypes;
 import com.test.rest.dao.GetStatusRequestDao;
 import com.test.rest.models.GetStatusRequestModel;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.NonTransientResourceException;
+import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.net.www.http.HttpClient;
 
+import javax.annotation.Resource;
 import javax.xml.ws.ServiceMode;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -22,21 +27,14 @@ import java.util.TimerTask;
 /**
  * Created by Nazar on 19.12.2015.
  */
-@Service
-public class StatusUpdaterService extends TimerTask {
+public class StatusUpdaterService   {
 
-    @Autowired
-    GetStatusRequestDao getStatusRequestDao;
+    private GetStatusRequestDao getStatusRequestDao;
 
     public StatusUpdaterService(){
         System.out.print("======= Created new StatusUpdaterService ========== \n");
-
-        Timer timer = new Timer();
-        timer.schedule(this, 1000*60);
-
     }
 
-    @Override
     public void run() {
         System.out.print("Date "  + new Date().toString() + "\n");
         try {
@@ -56,10 +54,25 @@ public class StatusUpdaterService extends TimerTask {
                 String endpoint = requestModel.getDevice().getLocationUrl();
                 String path = requestModel.getPath();
                 String targetField = requestModel.getTargetField();
+                String value = "";
                 //get current value
-                requestModel.setCurrentValue(Unirest.get(endpoint + path).asJson().getBody().getObject().get(targetField).toString());
+                //TODO: Handle exception com.mashape.unirest.http.exceptions.UnirestException as "failed: connect timed out"
+                try {
+                    value = Unirest.get(endpoint + path).asJson().getBody().getObject().get(targetField).toString();
+                } catch (com.mashape.unirest.http.exceptions.UnirestException e){
+                    value = "No connection";
+                }
+                requestModel.setCurrentValue(value);
             }
             getStatusRequestDao.update(requestModel);
         }
+    }
+
+    public void setGetStatusRequestDao(GetStatusRequestDao getStatusRequestDao) {
+        this.getStatusRequestDao = getStatusRequestDao;
+    }
+
+    public GetStatusRequestDao getGetStatusRequestDao() {
+        return getStatusRequestDao;
     }
 }

@@ -26,33 +26,16 @@
     <thead>
     <tr>
       <th data-field="id">Name</th>
-      <th data-field="name">Item Name</th>
-      <th data-field="price">Item Price</th>
+      <th data-field="name">Endpoint</th>
+      <th data-field="price">Is Alive</th>
     </tr>
     </thead>
     <tbody>
-
-      <td>Alvin</td>
-      <td>Eclair</td>
-      <td>$0.87</td>
-    </tr>
-    <tr>
-      <td>Alan</td>
-      <td>Jellybean</td>
-      <td>$3.76</td>
-    </tr>
-    <tr>
-      <td>Jonathan</td>
-      <td>Lollipop</td>
-      <td>$7.00</td>
-
-
-    <c:forEach var="device" items="${devices}">
+      <c:forEach var="device" items="${devices}">
       <tr>
         <td> <c:out value="${device.name}"/> </td>
         <td> <c:out value="${device.locationUrl}"/> </td>
-        <td> <c:out value="${device.owner}"/> </td>
-
+        <td> <c:out value="${device.isAlive}"/> </td>
       </tr>
     </c:forEach>
     </tbody>

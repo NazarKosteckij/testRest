@@ -1,6 +1,8 @@
 package com.test.rest.services.users;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,6 +11,7 @@ import java.util.regex.Pattern;
 import com.test.rest.dto.UserDto;
 import com.test.rest.services.EmailService;
 import com.test.rest.utils.mappers.UserMapper;
+import com.test.rest.utils.mappers.UserMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.test.rest.contstants.users.UserGender;
@@ -34,8 +37,7 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 	@Autowired
 	protected EmailService emailService;
 
-	@Autowired
-	protected UserMapper userMapper;
+	protected UserMapper userMapper = new UserMapperImpl();
 
 	protected UserValidator userValidator = new UserValidator();
 
@@ -88,7 +90,8 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void deleteUser(UserModel user) {
+	public void deleteUser(UserDto userDto) {
+		UserModel user = userMapper.createUserFromDto(userDto);
 		validateUser(user);
 		userDao.delete(user);
 	}
@@ -230,6 +233,9 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 				user.setRole(UserRoles.ROLE_USER);
 			if(user.getStatus()==null)
 				user.setStatus(UserStatuses.STATUS_UNCONFIRMED);
+
+			if(user.getBirthdate() != null)
+				user.setBirthdate((Date) Calendar.getInstance().getTime());
 
 			if(validateEmail(user.getEmail()) && validateGender(user.getGender())){
 				if(validatePassword(user.getPassword())){

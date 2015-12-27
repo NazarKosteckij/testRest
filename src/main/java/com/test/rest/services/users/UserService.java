@@ -37,7 +37,7 @@ public interface UserService {
 	 * Deletes user
 	 * @param user
 	 */
-	public void deleteUser(UserModel user);
+	public void deleteUser(UserDto user);
 	
 	/**
 	 * Changes user's status to {@link UserStatuses.STATUS_CONFIRMED}

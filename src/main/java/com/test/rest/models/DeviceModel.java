@@ -1,5 +1,7 @@
 package com.test.rest.models;
 
+import com.test.rest.models.enums.device.DeviceType;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class DeviceModel {
     private String locationUrl;
 
     @Column(name="type")
-    private String type;
+    private DeviceType type = DeviceType.Other;
 
     @Column(name = "isAlive")
     private  Boolean isAlive;
@@ -40,11 +42,11 @@ public class DeviceModel {
         this.locationUrl = locationUrl;
     }
 
-    public String getType() {
+    public DeviceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(DeviceType type) {
         this.type = type;
     }
 

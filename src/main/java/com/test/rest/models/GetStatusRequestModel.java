@@ -34,6 +34,12 @@ public class GetStatusRequestModel {
     @ManyToOne
     private DeviceModel device;
 
+    @Column(name = "units")
+    private String units;
+
+    public GetStatusRequestModel() {
+    }
+
     public String getPath() {
         return path;
     }
@@ -56,9 +62,6 @@ public class GetStatusRequestModel {
 
     public void setCurrentValue(String currentValue) {
         this.currentValue = currentValue;
-    }
-
-    public GetStatusRequestModel() {
     }
 
     public DeviceModel getDevice() {
@@ -92,4 +95,13 @@ public class GetStatusRequestModel {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
+
 }

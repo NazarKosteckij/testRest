@@ -64,7 +64,7 @@
 	<beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
 
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
- 	<beans:property name="emailSender" ref="emailSender"></beans:property>
+ 		<beans:property name="emailSender" ref="emailSender"></beans:property>
  	</beans:bean>
 	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
 		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao"></beans:property>
@@ -73,6 +73,12 @@
 
 	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"></beans:bean>
 	<beans:bean id="deviceService" class="com.test.rest.services.devices.DeviceService"/>
+
+	<beans:bean id="a" class="com.test.rest.utils.recaptcha.VerifyCaptchaImpl" >
+		<beans:constructor-arg name="url" value="${google.recaptcha.url}"/>
+		<beans:constructor-arg name="secret" value="${google.recaptcha.key.secret}"/>
+	</beans:bean>
+
 	<beans:bean id="emailSender" class="com.test.rest.utils.email.EmailSender" init-method="init">
  		<beans:property name="username" value="${mail.acount.email}"/>
  		<beans:property name="password" value="${mail.acount.password}"/>

@@ -28,15 +28,17 @@
       <th data-field="id">Name</th>
       <th data-field="name">Endpoint</th>
       <th data-field="price">Is Alive</th>
+      <th data-field="price">Actions</th>
     </tr>
     </thead>
     <tbody>
       <c:forEach var="device" items="${devices}">
-      <tr>
-        <td> <c:out value="${device.name}"/> </td>
-        <td> <c:out value="${device.locationUrl}"/> </td>
-        <td> <c:out value="${device.isAlive}"/> </td>
-      </tr>
+          <tr class="device" id="<c:out value="${device.id}"/>">
+            <td> <c:out value="${device.name}"/> </td>
+            <td> <c:out value="${device.locationUrl}"/> </td>
+            <td> <c:out value="${device.isAlive}"/> </td>
+            <td> <a class="btn small red">remove</a> </td>
+          </tr>
     </c:forEach>
     </tbody>
   </table>

@@ -1,6 +1,6 @@
-package com.test.rest.controllers;
+package com.test.rest.controllers.api.users;
 
-import com.test.rest.models.UserModel;
+import com.test.rest.dto.UserDto;
 import com.test.rest.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class UserFilterController {
     
     //TODO change com.test.rest.models.UserModel onto com.test.rest.dto.UserDto
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody List<UserModel> getAll(){
+    public @ResponseBody List<UserDto> getAll(){
 
         return userService.getAll();
     }

@@ -1,23 +1,24 @@
-package com.test.rest.utils;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URL;
- 
+package com.test.rest.utils.recaptcha;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
- 
-public class VerifyCaptcha {
- 
-	private static final String url = "https://www.google.com/recaptcha/api/siteverify";
-    private static final String secret = "6LexOQsTAAAAAOk5IJ3gaG9XwJaearGpdVzsCcqa";
+import java.io.*;
+import java.net.URL;
+
+public class VerifyCaptchaImpl {
+
+	private String url;
+    private String secret;
     private final static String USER_AGENT = "Mozilla/5.0";
- 
-    public static boolean verify(String gRecaptchaResponse) throws IOException {
+
+    public VerifyCaptchaImpl(String url, String secret) {
+        this.url = url;
+        this.secret = secret;
+    }
+
+    public boolean verify(String gRecaptchaResponse) throws IOException {
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
             return false;
         }

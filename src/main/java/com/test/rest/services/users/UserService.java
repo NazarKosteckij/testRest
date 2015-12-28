@@ -12,7 +12,7 @@ public interface UserService {
 	 * Gets all users from database
 	 * @return List of users
 	 */
-	public List<UserModel> getAll();
+	public List<UserDto> getAll();
 
 	/**
 	 * Creates user in database

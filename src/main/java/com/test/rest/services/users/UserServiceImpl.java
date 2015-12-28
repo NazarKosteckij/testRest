@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 	 * @return
 	 */
 	@Override
-	public List<UserModel> getAll() {
-
-		return userDao.getAll();
+	public List<UserDto> getAll() {
+		List<UserModel> userModels = userDao.getAll();
+		return userMapper.userListToDtoList(userModels);
 	}
 
 	/**

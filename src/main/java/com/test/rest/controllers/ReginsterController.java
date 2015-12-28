@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.rest.utils.recaptcha.VerifyCaptchaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.test.rest.dto.UserDto;
 import com.test.rest.exception.ConfirmationRegistrationException;
 import com.test.rest.services.users.UserService;
-import com.test.rest.utils.VerifyCaptcha;
 
 
 @Controller
@@ -27,6 +27,9 @@ public class ReginsterController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private VerifyCaptchaImpl verifyCaptcha;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String register(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws ConfirmationRegistrationException {
@@ -37,7 +40,7 @@ public class ReginsterController {
 	public @ResponseBody UserDto doRegister(HttpServletRequest request, HttpServletResponse response,  @RequestBody UserDto user) throws IOException{
 		String gRecaptchaResponse = request.getHeader("g-recaptcha-response");
 	    
-		if (VerifyCaptcha.verify(gRecaptchaResponse)){
+		if (verifyCaptcha.verify(gRecaptchaResponse)){
 	    	userService.addUser(user);
 	    } else {
 	    	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

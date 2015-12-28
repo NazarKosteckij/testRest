@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Table(name="devices")
 @Entity
-public class DeviceModel {
+public class DeviceModel implements BaseModel {
 
     @Id
     @GeneratedValue

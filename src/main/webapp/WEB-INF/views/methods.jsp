@@ -17,7 +17,7 @@
   <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <title>Devices | ${username}</title>
+  <title>Devices | <%--${username}--%></title>
 </head>
 <body>
 <jsp:include page="navigationBar.jsp" />
@@ -32,12 +32,12 @@
     </tr>
     </thead>
     <tbody>
-      <c:forEach var="device" items="${devices}">
-          <tr class="device" id="<c:out value="${device.id}"/>">
-            <td> <c:out value="${device.name}"/> </td>
-            <td> <c:out value="${device.locationUrl}"/> </td>
-            <td> <c:out value="${device.isAlive}"/> </td>
-            <td> <a class="btn small red">remove</a> </td>
+      <c:forEach var="method" items="${methods}">
+          <tr class="method" id="<c:out value="${method.id}"/>">
+            <td> <c:out value="${method.name}"/> </td>
+            <td> <c:out value="${method.path}"/> </td>
+            <td> <c:out value="${method.currentValue}"/> </td>
+            <td> <a class="btn small">edit</a> </td>
           </tr>
     </c:forEach>
     </tbody>

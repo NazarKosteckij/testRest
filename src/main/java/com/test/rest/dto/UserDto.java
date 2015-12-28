@@ -1,6 +1,6 @@
 package com.test.rest.dto;
 
-public class UserDto{
+public class UserDto implements BaseDto{
 	
 	private Integer id;
 	

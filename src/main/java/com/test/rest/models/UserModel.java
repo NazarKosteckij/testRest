@@ -1,17 +1,16 @@
 package com.test.rest.models;
 
-import java.sql.Date;
-import java.util.List;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Check;
+import java.sql.Date;
+import java.util.List;
 
 
 @Table(name="users")
 @Entity(name = "userModel")
 @Check(constraints="(users.gender = 'male' OR users.gender = 'female')")
-public class UserModel {
+public class UserModel  implements BaseModel {
 	
 	@Id
 	@GeneratedValue

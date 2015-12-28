@@ -1,12 +1,13 @@
 package com.test.rest.utils.mappers;
-import java.sql.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.test.rest.dto.UserDto;
 import com.test.rest.models.UserModel;
 
-public class UserMapperImpl implements UserMapper{
+import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+public class UserMapperImpl extends AbstractMapper<UserDto, UserModel> implements UserMapper{
 	
 	/**
 	 * Converts {@link UserModel} into {@link UserDto}
@@ -83,4 +84,15 @@ public class UserMapperImpl implements UserMapper{
 		}
 		return userModels;
 	}
+
+	@Override
+	public UserDto businessObjFromDto(UserModel user) {
+		return this.userToDto(user);
+	}
+
+	@Override
+	public UserModel businessObjToDto(UserDto user) {
+		return this.createUserFromDto(user);
+	}
+
 }

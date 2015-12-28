@@ -3,7 +3,7 @@ package com.test.rest.dto;
 import com.test.rest.models.enums.device.DeviceType;
 
 /**
- * Created by Назар on 26.12.2015.
+ * Created by Nazar on 26.12.2015.
  */
 public class DeviceDto implements BaseDto{
     private int id;

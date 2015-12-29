@@ -32,7 +32,7 @@ public class DeviceModel implements BaseModel {
     private UserModel owner;
 
     @OneToMany(mappedBy = "device")
-    private List<GetStatusRequestModel> getStatusRequestModels;
+    private List<DeviceMethodModel> deviceMethodModels;
 
     public String getLocationUrl() {
         return locationUrl;
@@ -50,12 +50,12 @@ public class DeviceModel implements BaseModel {
         this.type = type;
     }
 
-    public List<GetStatusRequestModel> getGetStatusRequestModels() {
-        return getStatusRequestModels;
+    public List<DeviceMethodModel> getDeviceMethodModels() {
+        return deviceMethodModels;
     }
 
-    public void setGetStatusRequestModels(List<GetStatusRequestModel> getStatusRequestModels) {
-        this.getStatusRequestModels = getStatusRequestModels;
+    public void setDeviceMethodModels(List<DeviceMethodModel> deviceMethodModels) {
+        this.deviceMethodModels = deviceMethodModels;
     }
 
     public String getName() {

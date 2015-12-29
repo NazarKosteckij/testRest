@@ -17,10 +17,10 @@
 
 	<beans:import resource="databaseContext.xml"/>
 
-	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.GetStatusRequestDaoImpl"/>
+	<beans:bean id="deviceMethodDao" class="com.test.rest.dao.DeviceMethodDaoImpl"/>
 
 	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
-		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao" />
+		<beans:property name="deviceMethodDao" ref="deviceMethodDao" />
 	</beans:bean>
 
 	<beans:bean id="tokenCache" class="com.test.rest.utils.tokens.TokenCacheImpl">

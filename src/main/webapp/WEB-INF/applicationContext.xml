@@ -4,11 +4,10 @@
 			 xmlns:beans="http://www.springframework.org/schema/beans"
 			 xmlns:context="http://www.springframework.org/schema/context"
 			 xmlns:task="http://www.springframework.org/schema/task"
-			 xmlns:batch="http://www.springframework.org/schema/batch"
 
 			 xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -67,7 +66,7 @@
  		<beans:property name="emailSender" ref="emailSender"></beans:property>
  	</beans:bean>
 	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
-		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao"></beans:property>
+		<beans:property name="deviceMethodDao" ref="getStatusRequestDao"></beans:property>
  	</beans:bean>
 	<beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"></beans:bean>
 
@@ -108,7 +107,7 @@
 	<beans:bean id="deviceDao" class="com.test.rest.dao.DeviceDaoImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
 	</beans:bean>
-	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.GetStatusRequestDaoImpl">
+	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.DeviceMethodDaoImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
 	</beans:bean>
 

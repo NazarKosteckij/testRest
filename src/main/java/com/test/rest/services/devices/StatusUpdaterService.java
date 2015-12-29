@@ -3,33 +3,19 @@ package com.test.rest.services.devices;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.test.rest.constants.requests.RequestReturnTypes;
-import com.test.rest.constants.requests.RequestTypes;
-import com.test.rest.dao.GetStatusRequestDao;
-import com.test.rest.models.GetStatusRequestModel;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import sun.net.www.http.HttpClient;
+import com.test.rest.dao.DeviceMethodDao;
+import com.test.rest.models.DeviceMethodModel;
 
-import javax.annotation.Resource;
-import javax.xml.ws.ServiceMode;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Nazar on 19.12.2015.
  */
 public class StatusUpdaterService   {
 
-    private GetStatusRequestDao getStatusRequestDao;
+    private DeviceMethodDao deviceMethodDao;
 
     public StatusUpdaterService(){
         System.out.print("======= Created new StatusUpdaterService ========== \n");
@@ -47,9 +33,9 @@ public class StatusUpdaterService   {
     }
 
     public void updateStatus() throws IOException, UnirestException {
-        List<GetStatusRequestModel> requests = getStatusRequestDao.getAll();
+        List<DeviceMethodModel> requests = deviceMethodDao.getAll();
 
-        for (GetStatusRequestModel requestModel: requests){
+        for (DeviceMethodModel requestModel: requests){
             if(requestModel.getReturnType().equals(RequestReturnTypes.JSON)) {
                 String endpoint = requestModel.getDevice().getLocationUrl();
                 String path = requestModel.getPath();
@@ -64,15 +50,15 @@ public class StatusUpdaterService   {
                 }
                 requestModel.setCurrentValue(value);
             }
-            getStatusRequestDao.update(requestModel);
+            deviceMethodDao.update(requestModel);
         }
     }
 
-    public void setGetStatusRequestDao(GetStatusRequestDao getStatusRequestDao) {
-        this.getStatusRequestDao = getStatusRequestDao;
+    public void setDeviceMethodDao(DeviceMethodDao deviceMethodDao) {
+        this.deviceMethodDao = deviceMethodDao;
     }
 
-    public GetStatusRequestDao getGetStatusRequestDao() {
-        return getStatusRequestDao;
+    public DeviceMethodDao getDeviceMethodDao() {
+        return deviceMethodDao;
     }
 }

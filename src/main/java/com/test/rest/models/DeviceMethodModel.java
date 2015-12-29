@@ -1,7 +1,6 @@
 package com.test.rest.models;
 
 import com.test.rest.constants.requests.RequestReturnTypes;
-import com.test.rest.constants.requests.RequestTypes;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
  */
 @Table(name="requests")
 @Entity
-public class GetStatusRequestModel {
+public class DeviceMethodModel implements BaseModel{
 
     @Id
     @GeneratedValue
@@ -37,7 +36,7 @@ public class GetStatusRequestModel {
     @Column(name = "units")
     private String units;
 
-    public GetStatusRequestModel() {
+    public DeviceMethodModel() {
     }
 
     public String getPath() {

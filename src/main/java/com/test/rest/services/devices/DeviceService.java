@@ -1,8 +1,8 @@
 package com.test.rest.services.devices;
 
 import com.test.rest.dao.DeviceDao;
+import com.test.rest.models.DeviceMethodModel;
 import com.test.rest.models.DeviceModel;
-import com.test.rest.models.GetStatusRequestModel;
 import com.test.rest.services.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class DeviceService implements CrudService<DeviceModel>{
         List<DeviceModel> deviceModels =  deviceDao.getAll();
         for (DeviceModel model : deviceModels) {
             model.setOwner(null);
-            for(GetStatusRequestModel requestModel : model.getGetStatusRequestModels()) {
+            for(DeviceMethodModel requestModel : model.getDeviceMethodModels()) {
                 requestModel.setDevice(null);
             }
         }
@@ -41,7 +41,7 @@ public class DeviceService implements CrudService<DeviceModel>{
     public DeviceModel read(Integer id) {
         DeviceModel model =  deviceDao.read(id);
         model.setOwner(null);
-        for(GetStatusRequestModel requestModel : model.getGetStatusRequestModels()) {
+        for(DeviceMethodModel requestModel : model.getDeviceMethodModels()) {
             requestModel.setDevice(null);
         }
         return model;
@@ -51,7 +51,7 @@ public class DeviceService implements CrudService<DeviceModel>{
     public DeviceModel readUserDevice(Integer  userId, Integer deviceId) {
         DeviceModel deviceModel =  deviceDao.getUsersDevice(userId, deviceId);
         deviceModel.setOwner(null);
-        for(GetStatusRequestModel requestModel : deviceModel.getGetStatusRequestModels()) {
+        for(DeviceMethodModel requestModel : deviceModel.getDeviceMethodModels()) {
             requestModel.setDevice(null);
         }
         return deviceModel;
@@ -60,7 +60,7 @@ public class DeviceService implements CrudService<DeviceModel>{
         List<DeviceModel> deviceModels =  deviceDao.getAllOfUser(userId);
         for (DeviceModel model : deviceModels) {
             model.setOwner(null);
-            for(GetStatusRequestModel requestModel : model.getGetStatusRequestModels()) {
+            for(DeviceMethodModel requestModel : model.getDeviceMethodModels()) {
                 requestModel.setDevice(null);
             }
         }

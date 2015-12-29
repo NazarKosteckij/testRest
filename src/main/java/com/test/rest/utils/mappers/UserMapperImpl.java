@@ -11,7 +11,7 @@ public class UserMapperImpl extends AbstractMapper<UserDto, UserModel> implement
 	
 	/**
 	 * Converts {@link UserModel} into {@link UserDto}
-	 * @param user
+	 * @param user {@link UserModel}
 	 * @return {@link UserDto}
 	 */
 	public UserDto userToDto(UserModel user) {
@@ -31,13 +31,14 @@ public class UserMapperImpl extends AbstractMapper<UserDto, UserModel> implement
 		userDto.setPhone(user.getPhone());
 		userDto.setGender(user.getGender());
 		userDto.setRole(user.getRole());
-		
+		userDto.setStatus(user.getStatus());
+
 		return userDto;
 	}
 	
 	/**
 	 * Converts {@link UserDto} into {@link UserModel}
-	 * @param userDto
+	 * @param userDto {@link UserDto}
 	 * @return {@link UserModel}
 	 */
 	public UserModel createUserFromDto(UserDto userDto) {
@@ -55,13 +56,14 @@ public class UserMapperImpl extends AbstractMapper<UserDto, UserModel> implement
 		userModel.setPhone(userDto.getPhone());
 		userModel.setGender(userDto.getGender());
 		userModel.setRole(userDto.getRole());
-		
+		userModel.setStatus(userDto.getStatus());
+
 		return userModel;
 	}
 
 	/**
 	 *  Converts list of {@link UserModel} into list of  {@link UserDto}
-	 * @param users
+	 * @param users list of {@link UserModel}
 	 * @return List of {@link UserDto}
 	 */
 	public List<UserDto> userListToDtoList(List<UserModel> users){
@@ -74,7 +76,7 @@ public class UserMapperImpl extends AbstractMapper<UserDto, UserModel> implement
 
 	/**
 	 *  Converts list of {@link UserDto} into list of  {@link UserModel}
-	 * @param users
+	 * @param users list of {@link UserDto}
 	 * @return List of {@link UserDto}
 	 */
 	public List<UserModel> dtoListToUserList(List<UserDto> users){

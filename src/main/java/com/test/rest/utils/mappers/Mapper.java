@@ -11,7 +11,7 @@ import java.util.List;
 public interface Mapper<DTO extends BaseDto, BO extends BaseModel> {
     public DTO businessObjFromDto(BO bo);
     public BO businessObjToDto(DTO dto);
-    public List<DTO> dtoListToBusinessObjList(List<BO> bo);
-    public List<BO> businessObjListToDtoList(List<DTO> dto);
+    public List<DTO> businessObjListToDtoList(List<BO> bo);
+    public List<BO> dtoListToBusinessObjList(List<DTO> dto);
 
 }

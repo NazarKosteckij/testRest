@@ -3,7 +3,6 @@ package com.test.rest.utils.mappers;
 import com.test.rest.contstants.users.UserGender;
 import com.test.rest.contstants.users.UserStatuses;
 import com.test.rest.dto.UserDto;
-import com.test.rest.models.DeviceModel;
 import com.test.rest.models.UserModel;
 import com.test.rest.utils.MD5;
 import org.junit.Test;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +36,43 @@ public class UserMapperImplTest {
 
     @Test
     public void testCreateUserFromDto() throws Exception {
-
+        UserDto userDto = getUserDto();
+        UserModel userModel = userMapper.createUserFromDto(userDto);
+        assertUsersEquals(userDto, userModel);
     }
 
     @Test
     public void testUserListToDtoList() throws Exception {
+        List<UserDto> userDtoList = new ArrayList<UserDto>();
+        List<UserModel> userModelList;
 
+        userDtoList.add(getUserDto());
+        userDtoList.add(getUserDto());
+
+        userModelList = userMapper.dtoListToUserList(userDtoList);
+
+        assertEquals("size of arrays", userDtoList.size(), userModelList.size());
+
+        for(int i = 0; i < userDtoList.size(); i++){
+            assertUsersEquals(userDtoList.get(i), userModelList.get(i));
+        }
     }
 
     @Test
     public void testDtoListToUserList() throws Exception {
+        List<UserDto> userDtoList;
+        List<UserModel> userModelList = new ArrayList<UserModel>();
 
+        userModelList.add(getUser());
+        userModelList.add(getUser());
+
+        userDtoList = userMapper.businessObjListToDtoList(userModelList);
+
+        assertEquals("size of arrays", userDtoList.size(), userModelList.size());
+
+        for(int i = 0; i < userDtoList.size(); i++){
+            assertUsersEquals(userDtoList.get(i), userModelList.get(i));
+        }
     }
 
     private void assertUsersEquals(UserDto userDto, UserModel userModel){
@@ -56,6 +82,7 @@ public class UserMapperImplTest {
         assertEquals("user role", userDto.getRole(), userModel.getRole());
         assertEquals("user status", userDto.getStatus(), userModel.getStatus());
         assertEquals("user id", userDto.getId(), userModel.getId());
+        assertEquals("user birth date", userDto.getBirthdate(), userModel.getBirthdate().toString());
     }
 
     private UserModel getUser(){
@@ -68,10 +95,21 @@ public class UserMapperImplTest {
         userModel.setGender(UserGender.GENDER_FEMALE);
         userModel.setPassword(MD5.getMD5("pwd"));
         userModel.setStatus(UserStatuses.STATUS_CONFIRMED);
-        String s = userModel.getStatus();
-        List<DeviceModel> devices = new ArrayList<DeviceModel>();
-        devices.add(new DeviceModel());
-        userModel.setDevices(devices);
+        userModel.setBirthdate(new Date(2015-01-01));
         return userModel;
+    }
+    
+    private UserDto getUserDto(){
+        UserDto userDto = new UserDto();
+        userDto.setId(1);
+        userDto.setLastName("last-name");
+        userDto.setFirstName("name");
+        userDto.setEmail("email");
+        userDto.setPhone("+3829588658");
+        userDto.setGender(UserGender.GENDER_FEMALE);
+        userDto.setPassword(MD5.getMD5("pwd"));
+        userDto.setStatus(UserStatuses.STATUS_CONFIRMED);
+        userDto.setBirthdate("2015-01-01");
+        return userDto;
     }
 }

@@ -25,10 +25,10 @@ public class DeviceMethodModel implements BaseModel{
     private String returnType = RequestReturnTypes.JSON;
 
     @Column(name = "currentValue")
-    private String currentValue = RequestReturnTypes.JSON;
+    private String currentValue;
 
     @Column(name = "targetField")
-    private String targetField = RequestReturnTypes.JSON;
+    private String targetField;
 
     @ManyToOne
     private DeviceModel device;

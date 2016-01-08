@@ -1,15 +1,8 @@
 package com.test.rest.constants.requests;
 
 import com.test.rest.services.devices.StatusUpdaterService;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -27,7 +20,7 @@ public class Scheculder {
         try {
 
             String dateParam = new Date().toString();
-            statusUpdaterService.updateStatus();
+            statusUpdaterService.run();
             System.out.println(dateParam);
 
 

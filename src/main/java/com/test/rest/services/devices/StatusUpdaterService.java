@@ -12,8 +12,6 @@ import com.test.rest.services.ServiceObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,6 +25,7 @@ public class StatusUpdaterService implements Observable, Runnable{
     @Autowired
     protected DeviceMethodDao deviceMethodDao;
 
+    @Autowired
     JobService jobService;
 
     public StatusUpdaterService(){
@@ -34,24 +33,15 @@ public class StatusUpdaterService implements Observable, Runnable{
     }
 
     public void run() {
-        List<JobModel> jobModels = new ArrayList<JobModel>();
-        JobModel jobModelStub = new JobModel();
-        jobModelStub.setMethodModel(deviceMethodDao.read(2));
+        List<JobModel> jobModels = jobService.getAll();
         for (JobModel jobModel : jobModels){
             DeviceMethodModel methodModel = jobModel.getMethodModel();
             doUpdate(methodModel);
         }
-        System.out.print("Date "  + new Date().toString() + "\n");
-        try {
-            this.updateStatus();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public void updateStatus() throws IOException, UnirestException {
+    public void updateAllStatuses() throws IOException, UnirestException {
         List<DeviceMethodModel> requests = deviceMethodDao.getAll();
 
         for (DeviceMethodModel requestModel: requests){

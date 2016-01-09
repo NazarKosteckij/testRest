@@ -2,36 +2,40 @@ package com.test.rest.models;
 
 import com.test.rest.models.enums.device.UpdateFrequency;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
  * Created by Nazar on 30.12.2015.
  */
 @Entity
+@Table(name="job")
 public class JobModel implements BaseModel{
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     Integer id;
 
-    @OneToOne
-    private DeviceMethodModel methodModel;
+    @Column
+    private String name;
 
+    @OneToOne
+    private DeviceMethodModel method;
+
+    @Column
     private UpdateFrequency frequency;
 
+    @Column
     private Date lastExecution;
 
 
     public DeviceMethodModel getMethodModel() {
-        return methodModel;
+        return method;
     }
 
     public void setMethodModel(DeviceMethodModel methodModel) {
-        this.methodModel = methodModel;
+        this.method = methodModel;
     }
 
     public UpdateFrequency getFrequency() {
@@ -48,5 +52,13 @@ public class JobModel implements BaseModel{
 
     public void setLastExecution(Date lastExecution) {
         this.lastExecution = lastExecution;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

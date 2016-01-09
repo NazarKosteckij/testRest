@@ -1,4 +1,4 @@
-package com.test.rest.controllers;
+package com.test.rest.controllers.pages;
 
 import com.test.rest.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

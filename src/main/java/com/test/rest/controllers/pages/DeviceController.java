@@ -1,4 +1,4 @@
-package com.test.rest.controllers;
+package com.test.rest.controllers.pages;
 
 import com.test.rest.contstants.users.UserRoles;
 import com.test.rest.dto.UserDto;
@@ -28,6 +28,7 @@ public class DeviceController {
     @Autowired
     UserService userService;
 
+    @SuppressWarnings("SpringMVCViewInspection")
     @Secured(value = UserRoles.ROLE_USER)
     @RequestMapping(value = "/mydevices", method = RequestMethod.GET)
     public String home(HttpServletRequest request, HttpServletResponse response, Locale locale,ModelMap model, Principal principal ) {
@@ -41,6 +42,7 @@ public class DeviceController {
     }
 
     // TODO have some problems with it without login
+    @SuppressWarnings("SpringMVCViewInspection")
     @Secured(value = UserRoles.ROLE_USER)
     @RequestMapping(value = "/mydevices/{deviceId}", method = RequestMethod.GET)
     public String showDeviceDetails(@PathVariable Integer deviceId, HttpServletRequest request, HttpServletResponse response, Locale locale,ModelMap model, Principal principal ) {

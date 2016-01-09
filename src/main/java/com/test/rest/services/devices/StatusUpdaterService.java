@@ -6,7 +6,7 @@ import com.test.rest.constants.requests.RequestReturnTypes;
 import com.test.rest.dao.DeviceMethodDao;
 import com.test.rest.models.BaseModel;
 import com.test.rest.models.DeviceMethodModel;
-import com.test.rest.models.Job;
+import com.test.rest.models.JobModel;
 import com.test.rest.services.Observable;
 import com.test.rest.services.ServiceObserver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +34,11 @@ public class StatusUpdaterService implements Observable, Runnable{
     }
 
     public void run() {
-        List<Job> jobs = new ArrayList<Job>();
-        Job jobStub = new Job();
-        jobStub.setMethodModel(deviceMethodDao.read(2));
-        for (Job job: jobs){
-            DeviceMethodModel methodModel = job.getMethodModel();
+        List<JobModel> jobModels = new ArrayList<JobModel>();
+        JobModel jobModelStub = new JobModel();
+        jobModelStub.setMethodModel(deviceMethodDao.read(2));
+        for (JobModel jobModel : jobModels){
+            DeviceMethodModel methodModel = jobModel.getMethodModel();
             doUpdate(methodModel);
         }
         System.out.print("Date "  + new Date().toString() + "\n");

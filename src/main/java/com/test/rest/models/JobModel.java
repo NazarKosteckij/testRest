@@ -12,7 +12,7 @@ import java.sql.Date;
  * Created by Nazar on 30.12.2015.
  */
 @Entity
-public class Job implements BaseModel{
+public class JobModel implements BaseModel{
 
     @Id
     @GeneratedValue

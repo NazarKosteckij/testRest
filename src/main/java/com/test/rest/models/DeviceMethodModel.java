@@ -1,7 +1,6 @@
 package com.test.rest.models;
 
 import com.test.rest.constants.requests.RequestReturnTypes;
-import com.test.rest.constants.requests.RequestTypes;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
  */
 @Table(name="requests")
 @Entity
-public class GetStatusRequestModel {
+public class DeviceMethodModel implements BaseModel{
 
     @Id
     @GeneratedValue
@@ -26,10 +25,10 @@ public class GetStatusRequestModel {
     private String returnType = RequestReturnTypes.JSON;
 
     @Column(name = "currentValue")
-    private String currentValue = RequestReturnTypes.JSON;
+    private String currentValue;
 
     @Column(name = "targetField")
-    private String targetField = RequestReturnTypes.JSON;
+    private String targetField;
 
     @ManyToOne
     private DeviceModel device;
@@ -37,7 +36,7 @@ public class GetStatusRequestModel {
     @Column(name = "units")
     private String units;
 
-    public GetStatusRequestModel() {
+    public DeviceMethodModel() {
     }
 
     public String getPath() {

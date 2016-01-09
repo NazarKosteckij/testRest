@@ -1,15 +1,14 @@
-package com.test.rest.controllers;
-
-import java.security.NoSuchProviderException;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package com.test.rest.controllers.pages;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.security.NoSuchProviderException;
+import java.util.Locale;
 
 
 /**

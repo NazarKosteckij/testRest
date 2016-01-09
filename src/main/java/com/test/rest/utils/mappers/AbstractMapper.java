@@ -34,7 +34,7 @@ public abstract class AbstractMapper<DTO extends BaseDto, BO extends BaseModel> 
      * @return list of {@link DTO}
      */
     @Override
-    public List<DTO> dtoListToBusinessObjList(List<BO> boList) {
+    public List<DTO> businessObjListToDtoList(List<BO> boList) {
         List<DTO> dtoList = new LinkedList<DTO>();
         for (BO bo: boList){
             dtoList.add(this.businessObjFromDto(bo));
@@ -48,7 +48,7 @@ public abstract class AbstractMapper<DTO extends BaseDto, BO extends BaseModel> 
      * @return list of {@link BO}
      */
     @Override
-    public List<BO> businessObjListToDtoList(List<DTO> dtoList) {
+    public List<BO> dtoListToBusinessObjList(List<DTO> dtoList) {
         List<BO> boList = new LinkedList<BO>();
         for (DTO dto: dtoList){
             boList.add(this.businessObjToDto(dto));

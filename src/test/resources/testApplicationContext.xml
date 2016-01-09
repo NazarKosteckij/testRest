@@ -3,11 +3,10 @@
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			 xmlns:beans="http://www.springframework.org/schema/beans"
 			 xmlns:context="http://www.springframework.org/schema/context"
-			 xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 
 			 xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
@@ -16,36 +15,34 @@
 	<context:component-scan base-package="com.test.rest" />
 	<context:component-scan base-package="com.test.rest.controllers" />
 
-	<beans:import resource="databaseContext.xml"></beans:import>
+	<beans:import resource="databaseContext.xml"/>
 
-	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.GetStatusRequestDaoImpl"/>
+	<beans:bean id="deviceMethodDao" class="com.test.rest.dao.DeviceMethodDaoImpl"/>
 
 	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
-		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao" ></beans:property>
+		<beans:property name="deviceMethodDao" ref="deviceMethodDao" />
 	</beans:bean>
 
 	<beans:bean id="tokenCache" class="com.test.rest.utils.tokens.TokenCacheImpl">
-		<beans:constructor-arg name="ttl" index="0" value="5000"></beans:constructor-arg>
+		<beans:constructor-arg name="ttl" index="0" value="5000"/>
 	</beans:bean>
 	<beans:bean id="rsa" class="com.test.rest.services.TokenServiceImpl" init-method="init" >
-		<beans:property name="size" value="12"></beans:property>
+		<beans:property name="size" value="12"/>
 	</beans:bean>
 
 
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<beans:property name="location">
-			<beans:value>database.properties</beans:value>
-		</beans:property>
+		<beans:property name="location" value="database.properties" />
 	</beans:bean>
 
 
    	
    	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
-   		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+   		<beans:property name="sessionFactory" ref="sessionFactory"/>
     </beans:bean>
 	
 	<beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
-
+	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"/>
   
     
 </beans:beans>

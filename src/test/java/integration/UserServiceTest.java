@@ -4,18 +4,15 @@ import com.test.rest.contstants.users.UserGender;
 import com.test.rest.dto.UserDto;
 import com.test.rest.services.users.UserService;
 import com.test.rest.utils.MD5;
-import org.h2.jdbcx.JdbcDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Nazar on 20.12.2015.
@@ -31,7 +28,7 @@ public class UserServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        userFromSqlScript = userService.getByEmail("silver_925@ukr.net");
+
     }
 
     @Test

@@ -1,24 +1,13 @@
 package com.test.rest.dao;
 
-import java.util.List;
-
-import org.hibernate.Query;
+import com.test.rest.models.UserModel;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.test.rest.models.UserModel;
+import java.util.List;
 
 @Transactional
-public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
-	
-	public void create(UserModel user) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.save(user);
-
-		closeSession(session);
-	}
+public class UserDaoIpml extends AbstractDaoImpl<UserModel> implements UserDao {
 
 	@Override
 	public List<UserModel> getAll() {
@@ -29,32 +18,12 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 		return users;
 	}
 
-
 	public UserModel read(Integer id) {
 		Session session = getSession();
 		session.beginTransaction();
 		UserModel userModel = (UserModel) session.get(UserModel.class, id);
 		closeSession(session);
 		return userModel;
-	}
-	
-	public void update(UserModel user) {
-		Session session = getSession();
-		session.beginTransaction();
-
-		session.update(user);
-
-		closeSession(session);
-	}
-
-	
-	public void delete(UserModel user) {
-		Session session = getSession();
-		session.beginTransaction();
-
-		session.delete(user);
-
-		closeSession(session);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,10 +35,7 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 
 		closeSession(session);
 
-		if(users.size()!=0)
-			return false;
-		else 
-			return true;
+		return users.size() == 0;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -81,7 +47,7 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 
 		closeSession(session);
 		if (users.size()!=0)
-			return (UserModel) users.get(0);
+			return users.get(0);
 		else
 			return null;
 	}
@@ -96,12 +62,6 @@ public class UserDaoIpml extends HibernateDaoSupport implements UserDao {
 
 		closeSession(session);
 
-		return (UserModel) users.get(0);
-	}
-
-	private final void closeSession(Session session){
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
+		return users.get(0);
 	}
 }

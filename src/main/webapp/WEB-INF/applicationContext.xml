@@ -4,11 +4,10 @@
 			 xmlns:beans="http://www.springframework.org/schema/beans"
 			 xmlns:context="http://www.springframework.org/schema/context"
 			 xmlns:task="http://www.springframework.org/schema/task"
-			 xmlns:batch="http://www.springframework.org/schema/batch"
 
 			 xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -55,25 +54,26 @@
 
 	<!-- Beans of Services -->
 	<beans:bean id="tokenCache" class="com.test.rest.utils.tokens.TokenCacheImpl">
-		<beans:constructor-arg name="ttl" index="0" value="5000"></beans:constructor-arg>
+		<beans:constructor-arg name="ttl" index="0" value="5000"/>
 	</beans:bean>
 	<beans:bean id="rsa" class="com.test.rest.services.TokenServiceImpl" init-method="init" >
-		<beans:property name="size" value="12"></beans:property>
+		<beans:property name="size" value="12"/>
 	</beans:bean>
 	
 	<beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
 
  	<beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
- 		<beans:property name="emailSender" ref="emailSender"></beans:property>
+ 		<beans:property name="emailSender" ref="emailSender"/>
  	</beans:bean>
 	<beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
-		<beans:property name="getStatusRequestDao" ref="getStatusRequestDao"></beans:property>
+		<beans:property name="deviceMethodDao" ref="getStatusRequestDao"/>
  	</beans:bean>
-	<beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"></beans:bean>
 
-	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"></beans:bean>
+	<beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"/>
+
+	<beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"/>
 	<beans:bean id="deviceService" class="com.test.rest.services.devices.DeviceService"/>
-
+	<beans:bean id="jobService" class="com.test.rest.services.devices.JobServiceImpl"/>
 	<beans:bean id="a" class="com.test.rest.utils.recaptcha.VerifyCaptchaImpl" >
 		<beans:constructor-arg name="url" value="${google.recaptcha.url}"/>
 		<beans:constructor-arg name="secret" value="${google.recaptcha.key.secret}"/>
@@ -103,13 +103,16 @@
 
 
 	<beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
-		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
 	<beans:bean id="deviceDao" class="com.test.rest.dao.DeviceDaoImpl">
-		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
-	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.GetStatusRequestDaoImpl">
-		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.DeviceMethodDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"/>
+	</beans:bean>
+	<beans:bean id="jobDao" class="com.test.rest.dao.JobDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
 
 	<context:property-placeholder 
@@ -161,13 +164,13 @@
 
     <beans:bean id="localExceptionHandler" class="com.test.rest.exception.LocalExceptionHandler" scope="prototype">
     	<!-- Choose exception handler -->
-    	<beans:constructor-arg name="handler" ref="tokenExceptionHandler"></beans:constructor-arg>
+    	<beans:constructor-arg name="handler" ref="tokenExceptionHandler"/>
     </beans:bean>
 
     <!-- Exception Handlers -->
-    <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"></beans:bean>
-    <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"></beans:bean>
-    <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"></beans:bean>
+    <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"/>
+    <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"/>
+    <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"/>
 
 	<beans:import resource="security.xml"/>
 

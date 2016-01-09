@@ -1,13 +1,15 @@
 package com.test.rest.dao;
 
-import com.test.rest.models.UserModel;
+import com.test.rest.models.BaseModel;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Nazar on 19.12.2015.
  */
-public interface Dao<clazz> {
+@Transactional
+public interface Dao<clazz extends BaseModel> {
 
     public void create(clazz o);
 

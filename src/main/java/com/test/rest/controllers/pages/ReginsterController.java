@@ -1,24 +1,18 @@
-package com.test.rest.controllers;
-
-import java.io.IOException;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.test.rest.utils.recaptcha.VerifyCaptchaImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+package com.test.rest.controllers.pages;
 
 import com.test.rest.dto.UserDto;
 import com.test.rest.exception.ConfirmationRegistrationException;
 import com.test.rest.services.users.UserService;
+import com.test.rest.utils.recaptcha.VerifyCaptchaImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Locale;
 
 
 @Controller

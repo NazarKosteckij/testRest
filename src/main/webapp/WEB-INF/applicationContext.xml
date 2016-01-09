@@ -110,6 +110,9 @@
 	<beans:bean id="getStatusRequestDao" class="com.test.rest.dao.DeviceMethodDaoImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
 	</beans:bean>
+	<beans:bean id="jobDao" class="com.test.rest.dao.JobDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
 
 	<context:property-placeholder 
 		location="classpath:database.properties, 

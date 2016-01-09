@@ -2,7 +2,6 @@ package com.test.rest.dao;
 
 import com.test.rest.models.DeviceModel;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,17 +11,7 @@ import java.util.List;
  */
 
 @Transactional
-public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
-
-    @Override
-    public void create(DeviceModel device) {
-        Session session = getSession();
-        session.beginTransaction();
-        session.save(device);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-    }
+public class DeviceDaoImpl extends AbstractDaoImpl<DeviceModel> implements DeviceDao {
 
     @Override
     public List<DeviceModel> getAll() {
@@ -33,35 +22,18 @@ public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
 
         devices = session.createQuery(" from com.test.rest.models.DeviceModel  Device").list();
 
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        closeSession(session);
+
         return devices;
     }
 
     @Override
     public DeviceModel read(Integer id) {
-        return (DeviceModel) getSession().get(DeviceModel.class, id);
-    }
-
-    @Override
-    public void update(DeviceModel o) {
         Session session = getSession();
         session.beginTransaction();
-        session.update(o);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    @Override
-    public void delete(DeviceModel o) {
-        Session session = getSession();
-        session.beginTransaction();
-        session.delete(o);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        DeviceModel deviceModel = (DeviceModel) getSession().get(DeviceModel.class, id);
+        closeSession(session);
+        return deviceModel;
     }
 
     @Override
@@ -74,10 +46,7 @@ public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
                 .createQuery("from com.test.rest.models.DeviceModel  Device where Device.owner = :userId ")
                 .setInteger("userId", userId)
                 .list();
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-
+        closeSession(session);
         return devices;
     }
 
@@ -91,9 +60,7 @@ public class DeviceDaoImpl extends HibernateDaoSupport implements DeviceDao {
                 .setInteger("deviceId", deviceId)
                 .list()
                 .get(0);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+       closeSession(session);
         return device;
     }
 }

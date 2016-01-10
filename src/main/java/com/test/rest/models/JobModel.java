@@ -61,4 +61,20 @@ public class JobModel implements BaseModel{
     public void setName(String name) {
         this.name = name;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public DeviceMethodModel getMethod() {
+        return method;
+    }
+
+    public void setMethod(DeviceMethodModel method) {
+        this.method = method;
+    }
 }

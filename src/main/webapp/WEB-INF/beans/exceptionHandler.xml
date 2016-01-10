@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <beans:bean id="simpleMappingExceptionResolver"
+                class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <beans:property name="exceptionMappings">
+            <beans:map>
+                <beans:entry key="TokenException" value="tokenException"/>
+            </beans:map>
+        </beans:property>
+        <!--  See note below on how this interacts with Spring Boot -->
+        <beans:property name="defaultErrorView" value="error"/>
+        <beans:property name="exceptionAttribute" value="ex"/>
+    </beans:bean>
+
+    <beans:bean id="localExceptionHandler" class="com.test.rest.exception.LocalExceptionHandler" scope="prototype">
+        <!-- Choose exception handler -->
+        <beans:constructor-arg name="handler" ref="tokenExceptionHandler"/>
+    </beans:bean>
+
+    <!-- Exception Handlers -->
+    <beans:bean id="tokenExceptionHandler" class="com.test.rest.exception.handlers.TokenExceptionHandler"/>
+    <beans:bean id="tokenExceptionHandlerSendNotification" class="com.test.rest.exception.handlers.TokenExceptionHandlerSendNotification"/>
+    <beans:bean id="tokenExceptionHandlerWriteLog" class="com.test.rest.exception.handlers.TokenExceptionHandlerWriteLog"/>
+
+</beans:beans>

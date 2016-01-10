@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+              xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans.xsd ">
+    <beans:bean id="transactionManager"
+                class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+
+    <beans:bean id="sessionFactory"
+                class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="packagesToScan" value="com.test.rest.models" />
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</beans:prop>
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+
+                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+                <beans:prop key="hibernate.format_sql">true</beans:prop>
+                <beans:prop key="hibernate.use_sql_comments">true</beans:prop>
+            </beans:props>
+
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="dataSource"
+                class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+        <beans:property name="url" value="${jdbc.url}" />
+        <beans:property name="username" value="${jdbc.user}" />
+        <beans:property name="password" value="${jdbc.pass}" />
+    </beans:bean>
+</beans:beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans:import resource="dataSource.xml"/>
+
+    <beans:bean id="userDao" class="com.test.rest.dao.UserDaoIpml">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+    <beans:bean id="deviceDao" class="com.test.rest.dao.DeviceDaoImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+    <beans:bean id="getStatusRequestDao" class="com.test.rest.dao.DeviceMethodDaoImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+    <beans:bean id="jobDao" class="com.test.rest.dao.JobDaoImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+
+
+</beans:beans>

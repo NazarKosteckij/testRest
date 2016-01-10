@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:task="http://www.springframework.org/schema/task"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    <!-- Executor beans -->
+    <beans:bean id="jobRepository"
+                class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+        <beans:property name="transactionManager" ref="transactionManager" />
+    </beans:bean>
+
+    <beans:bean id="jobLauncher"
+                class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <beans:property name="jobRepository" ref="jobRepository" />
+        <beans:property name="taskExecutor">
+            <beans:bean class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="scheduler" class="com.test.rest.constants.requests.Scheculder" />
+    <!-- Run every 30 seconds -->
+
+    <task:scheduled-tasks>
+        <!--
+        <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" />
+        -->
+        <task:scheduled ref="scheduler"  method="run" cron="*/30 * * * * *" />
+    </task:scheduled-tasks>
+
+</beans:beans>

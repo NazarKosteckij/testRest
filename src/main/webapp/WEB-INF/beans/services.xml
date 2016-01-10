@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans:bean id="userMapper" class="com.test.rest.utils.mappers.UserMapperImpl"/>
+    <beans:bean id="deviceService" class="com.test.rest.services.devices.DeviceService"/>
+    <beans:bean id="userFilterService" class="com.test.rest.services.filters.UserFilterServiceImpl"/>
+    <beans:bean id="jobService" class="com.test.rest.services.devices.JobServiceImpl"/>
+    <beans:bean id="userService" class="com.test.rest.services.users.UserServiceImpl"/>
+
+    <beans:bean id="tokenService" class="com.test.rest.services.TokenServiceImpl" init-method="init" >
+        <beans:property name="size" value="12"/>
+    </beans:bean>
+
+    <beans:bean id="emailService" class="com.test.rest.services.EmailServiceImpl">
+        <beans:property name="emailSender" ref="emailSender"/>
+    </beans:bean>
+
+    <beans:bean id="statusUpdaterService" class="com.test.rest.services.devices.StatusUpdaterService">
+        <beans:property name="deviceMethodDao" ref="getStatusRequestDao"/>
+    </beans:bean>
+
+
+</beans:beans>

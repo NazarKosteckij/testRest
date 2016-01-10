@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
+import java.util.Calendar;
+
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by Nazar on 09.01.2016.
  */
@@ -37,9 +42,12 @@ public class JobServiceImplTest {
     public void testAdding() throws Exception {
         JobModel jobModel = new JobModel();
         jobModel.setName("test");
-        //jobModel.setLastExecution(new Date(Calendar.getInstance().getTime().getTime()));
+        jobModel.setLastExecution(new Date(Calendar.getInstance().getTime().getTime()));
         jobModel.setFrequency(UpdateFrequency.FIFTEEN_MINUTES);
+
         jobService.create(jobModel);
+
+        assertNotNull(jobModel.getId());
 
     }
 }

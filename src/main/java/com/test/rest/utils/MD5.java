@@ -1,9 +1,10 @@
 package com.test.rest.utils;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
  
 public class MD5 implements PasswordEncoder {
     public static String getMD5(String input) {
@@ -31,6 +32,9 @@ public class MD5 implements PasswordEncoder {
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
 		String pass = (String)rawPassword;
+        if(pass.length()<32){
+            return getMD5(pass).equals(encodedPassword);
+        } else
 		return pass.equals(encodedPassword);
 	}
  

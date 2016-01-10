@@ -49,8 +49,6 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
@@ -61,12 +59,13 @@
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
 			<version>1.6.4</version>
+			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.0.60</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- AspectJ -->
@@ -178,6 +177,8 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.34</version>
+
+			<scope>runtime</scope>
 		</dependency>
 			
 		<!-- Hibernate framework -->
@@ -238,8 +239,8 @@
 			<artifactId>spring-orm</artifactId>
 			<version>3.2.0.RELEASE</version>
 		</dependency>
-	
-	
+
+
 	<!-- Security -->
 	 <dependency>
             <groupId>org.springframework.security</groupId>

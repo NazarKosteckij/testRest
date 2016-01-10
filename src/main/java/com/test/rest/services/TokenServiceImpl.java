@@ -1,12 +1,9 @@
 package com.test.rest.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.test.rest.utils.tokens.TokenCache;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
-@Component
 public class TokenServiceImpl implements TokenService {
 	
 	private short size = 4;	 

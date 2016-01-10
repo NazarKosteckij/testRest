@@ -1,9 +1,9 @@
 package com.test.rest.utils;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class StringUtilTest {
 	
@@ -14,9 +14,12 @@ public class StringUtilTest {
 
 	@Test
 	public void testRevertString() {
-		if(StringUtil.revertString("sa").equals("as"))
-			assertTrue(true);
-		else fail();
+		assertEquals("as",StringUtil.revertString("sa"));
+	}
+
+	@Test
+	public void testRevertSingleChar() throws Exception {
+		assertEquals("a",StringUtil.revertString("a"));
 	}
 
 }
